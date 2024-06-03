@@ -291,3 +291,15 @@ footer #right {
     color: #FFFFFF;
     text-decoration: none;
 }
+
+#functionChoice {
+    color: #505050;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#functionChoice:hover {
+    background-color: #F77408;
+}

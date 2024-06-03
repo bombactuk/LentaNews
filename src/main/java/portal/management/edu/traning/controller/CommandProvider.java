@@ -1,6 +1,8 @@
 package portal.management.edu.traning.controller;
 
 import portal.management.edu.traning.controller.impl.command.NoSuchCommand;
+import portal.management.edu.traning.controller.impl.command.admin.FunctionSamplingCommand;
+import portal.management.edu.traning.controller.impl.command.update.UpdateAddCommand;
 import portal.management.edu.traning.controller.impl.command.user.UserAuthorizationCommand;
 import portal.management.edu.traning.controller.impl.command.user.UserLogoutCommand;
 import portal.management.edu.traning.controller.impl.command.user.UserRegistrationCommand;
@@ -31,6 +33,10 @@ public class CommandProvider {
         this.repository.put(CommandName.USER_REGISTRATION, new UserRegistrationCommand());
         this.repository.put(CommandName.USER_LOGOUT, new UserLogoutCommand());
         this.repository.put(CommandName.USER_TOKEN_RESET, new UserTokenResetCommand());
+
+        this.repository.put(CommandName.ADMIN_FUNCTION_SAMPLING, new FunctionSamplingCommand());
+
+        this.repository.put(CommandName.UPDATE_ADD, new UpdateAddCommand());
 
     }
 

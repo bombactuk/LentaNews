@@ -19,6 +19,8 @@
 
     <jsp:include page="/WEB-INF/blocks/authorized_user_header.jsp" />
 
+
+
     <jsp:include page="/WEB-INF/blocks/footer.jsp" />
 
 </body>

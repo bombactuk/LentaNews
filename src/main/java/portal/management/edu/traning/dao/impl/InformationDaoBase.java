@@ -115,4 +115,37 @@ public class InformationDaoBase implements InformationDao {
 
     }
 
+    private static final String insertUpdateIntoDataBase = "INSERT INTO updates_portal" +
+            " (title, content, date_post, id_admin) VALUES(?,?,?,?)";
+
+    @Override
+    public boolean addUpdate(Update update) throws DaoException {
+
+        try (Connection dbConnection = dataBase.getConnection()) {
+
+            if (update != null) {
+
+                PreparedStatement prSt = dbConnection.prepareCall(insertUpdateIntoDataBase);
+
+                prSt.setString(1, update.getTitle());
+                prSt.setString(2, update.getContent());
+                prSt.setString(3, update.getDate().toString());
+                prSt.setInt(4, update.getIdAdmin());
+
+                return prSt.executeUpdate() > 0;
+
+            } else {
+
+                return false;
+
+            }
+
+        } catch (IOException | SQLException e) {
+
+            throw new DaoException(e);
+
+        }
+
+    }
+
 }

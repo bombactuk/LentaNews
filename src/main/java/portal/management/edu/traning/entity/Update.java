@@ -14,6 +14,7 @@ public class Update implements Serializable {
     private String title;
     private String content;
     private LocalDate date;
+    private int idAdmin;
 
     public Update() {
     }
@@ -26,6 +27,11 @@ public class Update implements Serializable {
         this.title = title;
         this.content = content;
         this.date = date;
+    }
+
+    public Update(String title, String content, LocalDate date, int idAdmin) {
+        this(title, content, date);
+        this.idAdmin = idAdmin;
     }
 
     public Update(int idUpdate, String title, String content, LocalDate date) {
@@ -65,17 +71,25 @@ public class Update implements Serializable {
         this.date = date;
     }
 
+    public int getIdAdmin() {
+        return idAdmin;
+    }
+
+    public void setIdAdmin(int idAdmin) {
+        this.idAdmin = idAdmin;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Update update = (Update) o;
-        return idUpdate == update.idUpdate && Objects.equals(title, update.title) && Objects.equals(content, update.content) && Objects.equals(date, update.date);
+        return idUpdate == update.idUpdate && idAdmin == update.idAdmin && Objects.equals(title, update.title) && Objects.equals(content, update.content) && Objects.equals(date, update.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idUpdate, title, content, date);
+        return Objects.hash(idUpdate, title, content, date, idAdmin);
     }
 
     @Override
@@ -84,7 +98,8 @@ public class Update implements Serializable {
                 "idUpdate=" + idUpdate +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", data=" + date +
+                ", date=" + date +
+                ", idAdmin=" + idAdmin +
                 '}';
     }
 

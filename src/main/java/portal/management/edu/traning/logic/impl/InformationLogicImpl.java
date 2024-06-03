@@ -49,4 +49,15 @@ public class InformationLogicImpl implements InformationLogic {
 
     }
 
+    @Override
+    public boolean addUpdate(Update update) throws LogicException {
+
+        try {
+            return dao.addUpdate(update);
+        } catch (DaoException e) {
+            throw new LogicException(e);
+        }
+
+    }
+
 }

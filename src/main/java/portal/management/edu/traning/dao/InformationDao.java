@@ -14,4 +14,6 @@ public interface InformationDao {
 
     List<Update> allUpdatesWithUs() throws DaoException;
 
+    boolean addUpdate(Update update) throws DaoException;
+
 }
