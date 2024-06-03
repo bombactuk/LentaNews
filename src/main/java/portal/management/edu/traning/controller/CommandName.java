@@ -1,0 +1,18 @@
+package portal.management.edu.traning.controller;
+
+public enum CommandName {
+
+    WRONG_REQUEST,
+    GO_TO_UPDATES_PAGE,
+    GO_TO_AUTHORIZATION_PAGE,
+    GO_TO_REGISTRATION_PAGE,
+    GO_TO_INDEX_PAGE,
+    GO_TO_ABOUT_PAGE,
+    GO_TO_PROFILE_PAGE,
+    GO_TO_ADMIN_PAGE,
+    GO_TO_NEWS_PAGE,
+    USER_AUTHORIZATION,
+    USER_REGISTRATION,
+    USER_TOKEN_RESET,
+    USER_LOGOUT
+}

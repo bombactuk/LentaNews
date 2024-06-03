@@ -1,0 +1,293 @@
+@charset "utf-8";
+
+/* Общие стили для сайта*/
+
+body {
+	padding-top: 40px;
+	padding-bottom: 40px;
+	background-color: #505050;
+}
+
+/* Стили для header*/
+
+header {
+	width: 100%;
+	float: left;
+	background-color: #505050;
+	border-bottom: 5px solid silver;
+	margin-top: 0px; /* Внешний отступ сверху */
+    padding-top: 0px;
+}
+
+header {
+    background-color: #505050;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+	float: center;
+}
+
+h1 {
+    margin: 0;
+    color: #FFFFFF;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li, #regAuth{
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a, #regAuth a  {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover, #regAuth a:hover {
+    background-color: #F77408;
+}
+
+#closedButtons {
+    color: #A9A9A9;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#closedButtons:hover {
+    background-color: #808080;
+}
+
+.logo {
+	color: #F77408;
+}
+
+#regAuth {
+	width: 30%;
+	float: right;
+	text-align: right;
+	font-size: 1.2em;
+}
+
+/* Стили для footer*/
+
+footer {
+	width: 98%;
+	float: left;
+	padding: 1%;
+	background-color: #505050;
+	border-top: 2px solid silver;
+	margin-top: 10px;
+}
+
+footer #social {
+	float: left;
+	width: 50%;
+}
+
+footer #social img {
+	width: 30px;
+	height: 30px;
+	float: left;
+	margin-right: 10px;
+}
+
+footer #right {
+	float: right;
+	width: 50%;
+	text-align: right;
+	font-size: 1.1em;
+}
+
+/* Стили для авторизации*/
+#remember_me {
+        position: absolute;
+}
+
+#container {
+    width: 600px;
+    margin: 150px auto;
+    background-color: #A5A5A5;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #F77408;
+}
+
+#logoAuthor {
+	color: #fff;
+}
+
+#container input {
+	width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#container button{
+	width: 100%;
+    background-color: #F77408;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px;
+}
+
+#container button:hover {
+    background-color: #505050;
+}
+
+#container a{
+	color: #505050;
+}
+
+#container a:hover {
+	color: #F77408;
+}
+
+/* Стили для регистрации*/
+
+#containerRegistr {
+    width: 600px;
+    margin: 150px auto;
+    background-color: #A5A5A5;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#containerRegistr h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #F77408;
+}
+
+#logoRegistr {
+	color: #fff;
+}
+
+#containerRegistr input {
+	width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#containerRegistr button{
+	width: 100%;
+    background-color: #F77408;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 10px;
+}
+
+#containerRegistr button:hover {
+    background-color: #505050;
+}
+
+#containerRegistr a{
+	color: #505050;
+}
+
+#containerRegistr a:hover {
+	color: #F77408;
+}
+
+/* Стили для about */
+
+#about_us {
+	width: 76%;
+	margin-left: 10%;
+	border: 1px solid silver;
+	background-color: #f4f4f4;
+	padding: 2%;
+}
+
+/* Стили для сраницы user_profile*/
+
+#userInfo {
+	width: 76%;
+	margin-left: 10%;
+	border: 1px solid silver;
+	background-color: #f4f4f4;
+	padding: 2%;
+}
+
+#userInfo a {
+    color: #505050;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#userInfo a:hover {
+    background-color: #F77408;
+}
+
+/* Стили для статей */
+
+#update {
+	width: 78%;
+	margin-left: 10%;
+	background-color: #f6f6f6;
+	padding: 1%;
+	float: left;
+}
+
+#divider {
+    border-top: 3px solid black;
+}
+
+#update h2 {
+	font-weight: normal;
+	font-size: 1.4em;
+	color: #636363;
+	font-family: Comic Sans MS, sans-serif;
+}
+
+#update p {
+	width: 90%;
+	margin-left: 5;
+}
+
+/* Стили для сраницы admin_profile*/
+
+#functionAdminProfile a {
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#functionAdminProfile a:hover {
+    background-color: #F77408;
+}
+
+#error-messageFunction {
+    color: #FFFFFF;
+    text-decoration: none;
+}
