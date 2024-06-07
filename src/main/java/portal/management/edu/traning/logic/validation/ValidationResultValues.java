@@ -3,12 +3,12 @@ package portal.management.edu.traning.logic.validation;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ValidationResult {
+public class ValidationResultValues {
 
     private boolean result;
     private StringBuilder exception;
 
-    private ValidationResult(Validator builder) {
+    private ValidationResultValues(Validator builder) {
 
         if (builder.getErrors() != null) {
 
@@ -31,7 +31,7 @@ public class ValidationResult {
 
     }
 
-    public static class Validator implements ObjBuilder<ValidationResult> {
+    public static class Validator implements ValidationResultBuilder<ValidationResultValues> {
 
         private StringBuilder errors = new StringBuilder();
 
@@ -104,9 +104,9 @@ public class ValidationResult {
         }
 
         @Override
-        public ValidationResult build() {
+        public ValidationResultValues build() {
 
-            return new ValidationResult(this);
+            return new ValidationResultValues(this);
 
         }
 

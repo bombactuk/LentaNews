@@ -11,7 +11,7 @@ import portal.management.edu.traning.entity.UserAuthorizationInfo;
 import portal.management.edu.traning.logic.LogicException;
 import portal.management.edu.traning.logic.LogicProvider;
 import portal.management.edu.traning.logic.UserLogic;
-import portal.management.edu.traning.logic.validation.ValidationResult;
+import portal.management.edu.traning.logic.validation.ValidationResultValues;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -20,7 +20,7 @@ public class UserAuthorizationCommand implements Command {
 
     private final LogicProvider logicProvider = LogicProvider.getInstance();
     private final UserLogic logicUser = logicProvider.getLogicUser();
-    private final ValidationResult.Validator validBuild = new ValidationResult.Validator();
+    private final ValidationResultValues.Validator validBuild = new ValidationResultValues.Validator();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,7 +36,7 @@ public class UserAuthorizationCommand implements Command {
             password.append(request.getParameter("password"));
             rememberMe.append(request.getParameter("remember-me"));
 
-            ValidationResult validator = validBuild.validLoginPassword(login.toString(), password.toString()).build();
+            ValidationResultValues validator = validBuild.validLoginPassword(login.toString(), password.toString()).build();
 
             if (validator.isResult()) {
 

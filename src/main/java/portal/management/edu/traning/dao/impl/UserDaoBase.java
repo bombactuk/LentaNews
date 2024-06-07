@@ -2,20 +2,21 @@ package portal.management.edu.traning.dao.impl;
 
 import portal.management.edu.traning.dao.DaoException;
 import portal.management.edu.traning.dao.UserDao;
-import portal.management.edu.traning.dao.impl.configuration.ConfigFilesDataBase;
+
+import portal.management.edu.traning.dao.impl.connectionPool.ConnectionPool;
+import portal.management.edu.traning.dao.impl.mapper.ResultSetBuilder;
+import portal.management.edu.traning.dao.impl.mapper.entity.UserInfoMapper;
+import portal.management.edu.traning.dao.impl.mapper.entity.UserMapper;
 import portal.management.edu.traning.entity.*;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 public class UserDaoBase implements UserDao {
 
-    private final ConfigFilesDataBase dataBase = ConfigFilesDataBase.getInstance();
-
+    private final ConnectionPool dataBase = ConnectionPool.getInstance();
 
     private static final String accountAuthorizationUserAndInfo = "SELECT " +
             "u.id_user, " +
@@ -29,34 +30,18 @@ public class UserDaoBase implements UserDao {
     @Override
     public User authorisationUser(UserAuthorizationInfo user) throws DaoException {
 
-        ResultSet resSet;
-
-        User userInfo = new User();
-
-        try (Connection dbConnection = dataBase.getConnection()) {
+        try (Connection dbConnection = dataBase.takeConection()) {
 
             PreparedStatement prSt = dbConnection.prepareStatement(accountAuthorizationUserAndInfo);
 
             prSt.setString(1, user.getLogin());
             prSt.setString(2, user.getPassword());
 
-            resSet = prSt.executeQuery();
+            ResultSetBuilder<User> userBuilder = new ResultSetBuilder<>(new UserMapper());
 
-            if (resSet.next()) {
+            return userBuilder.buildObj(prSt);
 
-                userInfo.setIdUser(resSet.getInt("id_user"));
-                userInfo.setRole(resSet.getString("title"));
-
-                return userInfo;
-
-            } else {
-
-                return null;
-
-            }
-
-
-        } catch (IOException | SQLException e) {
+        } catch (InterruptedException | SQLException e) {
 
             throw new DaoException(e);
 
@@ -77,33 +62,17 @@ public class UserDaoBase implements UserDao {
     @Override
     public User informationViaTokenUser(User user) throws DaoException {
 
-        ResultSet resSet;
-
-        User userInfo = new User();
-
-        try (Connection dbConnection = dataBase.getConnection()) {
+        try (Connection dbConnection = dataBase.takeConection()) {
 
             PreparedStatement prSt = dbConnection.prepareStatement(accountInformationViaTokenUser);
 
             prSt.setString(1, user.getToken());
 
-            resSet = prSt.executeQuery();
+            ResultSetBuilder<User> userBuilder = new ResultSetBuilder<>(new UserMapper());
 
-            if (resSet.next()) {
+            return userBuilder.buildObj(prSt);
 
-                userInfo.setIdUser(resSet.getInt("id_user"));
-                userInfo.setRole(resSet.getString("title"));
-
-                return userInfo;
-
-            } else {
-
-                return null;
-
-            }
-
-
-        } catch (IOException | SQLException e) {
+        } catch (InterruptedException | SQLException e) {
 
             throw new DaoException(e);
 
@@ -112,8 +81,10 @@ public class UserDaoBase implements UserDao {
     }
 
     private static final String checkingWhetherThereIsAnAccountOrNot = "SELECT * FROM users WHERE login = ?";
+
     private static final String insertAccountUser = "INSERT INTO users" +
             " ( login, password, info_user_id_info_user) VALUES(?,?,?)";
+
     private static final String insertInfoUser = "INSERT INTO info_users" +
             " ( name, birthday, country) VALUES(?,?,?)";
 
@@ -123,7 +94,6 @@ public class UserDaoBase implements UserDao {
     private static final String insertTokenUser = "INSERT INTO tokens (users_id_user) " +
             "VALUES(?)";
 
-
     @Override
     public boolean registrationUser(UserRegistrationInfo user) throws DaoException {
 
@@ -131,7 +101,7 @@ public class UserDaoBase implements UserDao {
         ResultSet idKey;
         int idInfoUser = 0;
 
-        try (Connection dbConnection = dataBase.getConnection()) {
+        try (Connection dbConnection = dataBase.takeConection()) {
 
             dbConnection.setAutoCommit(false);
 
@@ -192,7 +162,7 @@ public class UserDaoBase implements UserDao {
 
             }
 
-        } catch (IOException | SQLException e) {
+        } catch (InterruptedException | SQLException e) {
 
             throw new DaoException(e);
 
@@ -204,7 +174,7 @@ public class UserDaoBase implements UserDao {
     @Override
     public boolean addTokenUser(User user) throws DaoException {
 
-        try (Connection dbConnection = dataBase.getConnection()) {
+        try (Connection dbConnection = dataBase.takeConection()) {
 
             PreparedStatement prSt = dbConnection.prepareCall(addTokenUser);
 
@@ -213,7 +183,7 @@ public class UserDaoBase implements UserDao {
 
             return prSt.executeUpdate() > 0;
 
-        } catch (IOException | SQLException e) {
+        } catch (InterruptedException | SQLException e) {
 
             throw new DaoException(e);
 
@@ -229,28 +199,17 @@ public class UserDaoBase implements UserDao {
     @Override
     public UserInfo infoUser(User user) throws DaoException {
 
-        ResultSet resSet;
-
-        try (Connection dbConnection = dataBase.getConnection()) {
+        try (Connection dbConnection = dataBase.takeConection()) {
 
             PreparedStatement prSt = dbConnection.prepareStatement(infoUser);
 
             prSt.setInt(1, user.getIdUser());
 
-            resSet = prSt.executeQuery();
+            ResultSetBuilder<UserInfo> userInfoBuilder = new ResultSetBuilder<>(new UserInfoMapper());
 
-            if (resSet.next()) {
+            return userInfoBuilder.buildObj(prSt);
 
-                return new UserInfo(resSet.getString("name"), LocalDate.parse(resSet.getString("birthday")),
-                        resSet.getString("country"));
-
-            } else {
-
-                return null;
-
-            }
-
-        } catch (IOException | SQLException e) {
+        } catch (InterruptedException | SQLException e) {
 
             throw new DaoException(e);
 
@@ -263,7 +222,7 @@ public class UserDaoBase implements UserDao {
     @Override
     public boolean resetTokenUser() throws DaoException {
 
-        try (Connection dbConnection = dataBase.getConnection()) {
+        try (Connection dbConnection = dataBase.takeConection()) {
 
 
             PreparedStatement prSt = dbConnection.prepareCall(resetTokenUser);
@@ -274,7 +233,7 @@ public class UserDaoBase implements UserDao {
 
             return prSt.executeUpdate() > 0;
 
-        } catch (IOException | SQLException e) {
+        } catch (InterruptedException | SQLException e) {
 
             throw new DaoException(e);
 
