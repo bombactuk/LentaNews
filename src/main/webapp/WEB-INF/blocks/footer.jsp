@@ -7,11 +7,11 @@
 
     <div id="social">
 
-        <c:forEach var="contactsCommunications" items="${sessionScope.contacts}">
+        <c:forEach var="contactsCommunications" items="${contacts}">
 
-            <a href="${contactsCommunications.link}" title="Связь с нами" target="Связь с нами">
+            <a href="${contactsCommunications.link}" title="Contact us" target="Contact us">
 
-                <img src="${contactsCommunications.img}" alt="Связь с нами" title="Связь с нами" />
+                <img src="${contactsCommunications.img}" alt="Contact us" title="Contact us" />
 
             </a>
 
@@ -27,7 +27,7 @@
 
     <script>
 
-        document.getElementById('right').innerHTML = 'Все права защищены &copy; '
+        document.getElementById('right').innerHTML = 'All rights reserved &copy; '
         + new Date().getFullYear() + '';
 
     </script>

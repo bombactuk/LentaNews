@@ -18,7 +18,7 @@ public class UserDaoBase implements UserDao {
 
     private final ConnectionPool dataBase = ConnectionPool.getInstance();
 
-    private static final String accountAuthorizationUserAndInfo = "SELECT " +
+    private static final String SELECT_ACCOUNT_AUTHORIZATION_USER_AND_INFO = "SELECT " +
             "u.id_user, " +
             "u.info_user_id_info_user, " +
             "r.title " +
@@ -32,7 +32,7 @@ public class UserDaoBase implements UserDao {
 
         try (Connection dbConnection = dataBase.takeConection()) {
 
-            PreparedStatement prSt = dbConnection.prepareStatement(accountAuthorizationUserAndInfo);
+            PreparedStatement prSt = dbConnection.prepareStatement(SELECT_ACCOUNT_AUTHORIZATION_USER_AND_INFO);
 
             prSt.setString(1, user.getLogin());
             prSt.setString(2, user.getPassword());
@@ -49,7 +49,7 @@ public class UserDaoBase implements UserDao {
 
     }
 
-    private static final String accountInformationViaTokenUser = "SELECT " +
+    private static final String SELECT_ACCOUNT_INFORMATION_VAI_TOKEN_USER = "SELECT " +
             "u.id_user, " +
             "u.info_user_id_info_user, " +
             "r.title " +
@@ -64,7 +64,7 @@ public class UserDaoBase implements UserDao {
 
         try (Connection dbConnection = dataBase.takeConection()) {
 
-            PreparedStatement prSt = dbConnection.prepareStatement(accountInformationViaTokenUser);
+            PreparedStatement prSt = dbConnection.prepareStatement(SELECT_ACCOUNT_INFORMATION_VAI_TOKEN_USER);
 
             prSt.setString(1, user.getToken());
 
@@ -80,18 +80,18 @@ public class UserDaoBase implements UserDao {
 
     }
 
-    private static final String checkingWhetherThereIsAnAccountOrNot = "SELECT * FROM users WHERE login = ?";
+    private static final String SELECT_CHECKING_WHETHER_THERE_IS_AN_ACCOUNT_OR_NOT = "SELECT * FROM users WHERE login = ?";
 
-    private static final String insertAccountUser = "INSERT INTO users" +
+    private static final String INSERT_ACCOUNT_USER = "INSERT INTO users" +
             " ( login, password, info_user_id_info_user) VALUES(?,?,?)";
 
-    private static final String insertInfoUser = "INSERT INTO info_users" +
+    private static final String INSERT_INFO_USER = "INSERT INTO info_users" +
             " ( name, birthday, country) VALUES(?,?,?)";
 
-    private static final String insertRoleUser = "INSERT INTO roles_has_users (role_id_role, user_id_user) " +
+    private static final String INSERT_ROLE_USER = "INSERT INTO roles_has_users (role_id_role, user_id_user) " +
             "VALUES(?,?)";
 
-    private static final String insertTokenUser = "INSERT INTO tokens (users_id_user) " +
+    private static final String INSERT_TOKEN_USER = "INSERT INTO tokens (users_id_user) " +
             "VALUES(?)";
 
     @Override
@@ -101,82 +101,87 @@ public class UserDaoBase implements UserDao {
         ResultSet idKey;
         int idInfoUser = 0;
 
-        try (Connection dbConnection = dataBase.takeConection()) {
+        synchronized (this) {
 
-            dbConnection.setAutoCommit(false);
+            try (Connection dbConnection = dataBase.takeConection()) {
 
-            PreparedStatement prSt = dbConnection.prepareStatement(checkingWhetherThereIsAnAccountOrNot);
+                dbConnection.setAutoCommit(false);
 
-            prSt.setString(1, user.getLogin());
-
-            resSet = prSt.executeQuery();
-
-            if (!resSet.next()) {
-
-                prSt = dbConnection.prepareStatement(insertInfoUser, PreparedStatement.RETURN_GENERATED_KEYS);
-
-                prSt.setString(1, user.getName());
-                prSt.setString(2, user.getBirthday().toString());
-                prSt.setString(3, user.getCountry());
-
-                prSt.executeUpdate();
-
-                idKey = prSt.getGeneratedKeys();
-                if (idKey.next()) {
-                    idInfoUser = idKey.getInt(1);
-                }
-
-                prSt = dbConnection.prepareCall(insertAccountUser);
+                PreparedStatement prSt = dbConnection.prepareStatement(SELECT_CHECKING_WHETHER_THERE_IS_AN_ACCOUNT_OR_NOT);
 
                 prSt.setString(1, user.getLogin());
-                prSt.setString(2, user.getPassword());
-                prSt.setInt(3, idInfoUser);
 
-                prSt.executeUpdate();
+                resSet = prSt.executeQuery();
 
-                idKey = prSt.getGeneratedKeys();
-                if (idKey.next()) {
-                    idInfoUser = idKey.getInt(1);
+                if (!resSet.next()) {
+
+                    prSt = dbConnection.prepareStatement(INSERT_INFO_USER, PreparedStatement.RETURN_GENERATED_KEYS);
+
+                    prSt.setString(1, user.getName());
+                    prSt.setString(2, user.getBirthday().toString());
+                    prSt.setString(3, user.getCountry());
+
+                    prSt.executeUpdate();
+
+                    idKey = prSt.getGeneratedKeys();
+                    if (idKey.next()) {
+                        idInfoUser = idKey.getInt(1);
+                    }
+
+                    prSt = dbConnection.prepareCall(INSERT_ACCOUNT_USER);
+
+                    prSt.setString(1, user.getLogin());
+                    prSt.setString(2, user.getPassword());
+                    prSt.setInt(3, idInfoUser);
+
+                    prSt.executeUpdate();
+
+                    idKey = prSt.getGeneratedKeys();
+                    if (idKey.next()) {
+                        idInfoUser = idKey.getInt(1);
+                    }
+
+                    prSt = dbConnection.prepareCall(INSERT_ROLE_USER);
+
+                    prSt.setInt(1, 1);
+                    prSt.setInt(2, idInfoUser);
+
+                    prSt.executeUpdate();
+
+                    prSt = dbConnection.prepareCall(INSERT_TOKEN_USER);
+
+                    prSt.setInt(1, idInfoUser);
+
+                    prSt.executeUpdate();
+
+                    dbConnection.commit();
+
+                    return true;
+
+                } else {
+
+                    return false;
+
                 }
 
-                prSt = dbConnection.prepareCall(insertRoleUser);
+            } catch (InterruptedException | SQLException e) {
 
-                prSt.setInt(1, 1);
-                prSt.setInt(2, idInfoUser);
-
-                prSt.executeUpdate();
-
-                prSt = dbConnection.prepareCall(insertTokenUser);
-
-                prSt.setInt(1, idInfoUser);
-
-                prSt.executeUpdate();
-
-                dbConnection.commit();
-
-                return true;
-
-            } else {
-
-                return false;
+                throw new DaoException(e);
 
             }
 
-        } catch (InterruptedException | SQLException e) {
-
-            throw new DaoException(e);
-
         }
+
     }
 
-    private static final String addTokenUser = "UPDATE tokens SET number = ? WHERE users_id_user = ?";
+    private static final String UPDATE_ADD_TOKEN_USER = "UPDATE tokens SET number = ? WHERE users_id_user = ?";
 
     @Override
     public boolean addTokenUser(User user) throws DaoException {
 
         try (Connection dbConnection = dataBase.takeConection()) {
 
-            PreparedStatement prSt = dbConnection.prepareCall(addTokenUser);
+            PreparedStatement prSt = dbConnection.prepareCall(UPDATE_ADD_TOKEN_USER);
 
             prSt.setString(1, user.getToken());
             prSt.setInt(2, user.getIdUser());
@@ -191,7 +196,7 @@ public class UserDaoBase implements UserDao {
 
     }
 
-    private static final String infoUser = "SELECT u.id_user, iu.name, iu.birthday, iu.country " +
+    private static final String SELECT_INFO_USER = "SELECT u.id_user, iu.name, iu.birthday, iu.country " +
             "FROM users u " +
             "JOIN info_users iu ON u.info_user_id_info_user = iu.id_info_user " +
             "WHERE u.id_user = ?";
@@ -201,7 +206,7 @@ public class UserDaoBase implements UserDao {
 
         try (Connection dbConnection = dataBase.takeConection()) {
 
-            PreparedStatement prSt = dbConnection.prepareStatement(infoUser);
+            PreparedStatement prSt = dbConnection.prepareStatement(SELECT_INFO_USER);
 
             prSt.setInt(1, user.getIdUser());
 
@@ -217,7 +222,7 @@ public class UserDaoBase implements UserDao {
 
     }
 
-    private static final String resetTokenUser = "UPDATE tokens SET number = ? ";
+    private static final String UPDATE_RESET_TOKEN_USER = "UPDATE tokens SET number = ? ";
 
     @Override
     public boolean resetTokenUser() throws DaoException {
@@ -225,7 +230,7 @@ public class UserDaoBase implements UserDao {
         try (Connection dbConnection = dataBase.takeConection()) {
 
 
-            PreparedStatement prSt = dbConnection.prepareCall(resetTokenUser);
+            PreparedStatement prSt = dbConnection.prepareCall(UPDATE_RESET_TOKEN_USER);
 
             prSt.setString(1, "");
 

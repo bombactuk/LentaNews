@@ -1,10 +1,9 @@
-package portal.management.edu.traning.controller.impl.pagetransition;
+package portal.management.edu.traning.controller.impl.command.news;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import portal.management.edu.traning.controller.Command;
 import portal.management.edu.traning.entity.News;
 import portal.management.edu.traning.logic.LogicException;
@@ -14,7 +13,7 @@ import portal.management.edu.traning.logic.NewsLogic;
 import java.io.IOException;
 import java.util.List;
 
-public class GoToNewsPage implements Command {
+public class NewsSearchCommand implements Command {
 
     private final LogicProvider logicProvider = LogicProvider.getInstance();
     private final NewsLogic logicNews = logicProvider.getLogicNews();
@@ -24,17 +23,23 @@ public class GoToNewsPage implements Command {
 
         try {
 
-            HttpSession session = request.getSession(false);
+            StringBuilder meaning = new StringBuilder();
 
-            if (session.getAttribute("user") == null) {
+            meaning.append(request.getParameter("query"));
 
-                response.sendRedirect("urlToServlet?command=go_to_updates_page");
+            List<News> news;
 
-                return;
+            if (meaning.toString().isEmpty()) {
+
+                news = logicNews.displayAllNews();
+
+            } else {
+
+                news = logicNews.searchNews(meaning.toString());
 
             }
 
-            request.setAttribute("news", logicNews.displayAllNews());
+            request.setAttribute("news", news);
 
             request.setAttribute("categories", logicNews.displayAllNewsCategories());
 
@@ -43,7 +48,7 @@ public class GoToNewsPage implements Command {
 
         } catch (LogicException e) {
 
-            response.getWriter().print("<script type='text/javascript'>alert('" + "Go news page Error" + "');" +
+            response.getWriter().print("<script type='text/javascript'>alert('" + "search news Error" + "');" +
                     " window.history.back();</script>");
 
         }

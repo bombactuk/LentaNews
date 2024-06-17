@@ -2,23 +2,24 @@ package portal.management.edu.traning.logic.impl;
 
 import portal.management.edu.traning.dao.DaoException;
 import portal.management.edu.traning.dao.DaoProvider;
-import portal.management.edu.traning.dao.InformationDao;
-import portal.management.edu.traning.entity.*;
-import portal.management.edu.traning.logic.InformationLogic;
+import portal.management.edu.traning.dao.NewsDao;
+import portal.management.edu.traning.entity.News;
+import portal.management.edu.traning.entity.NewsCategories;
 import portal.management.edu.traning.logic.LogicException;
+import portal.management.edu.traning.logic.NewsLogic;
 
 import java.util.List;
 
-public class InformationLogicImpl implements InformationLogic {
+public class NewsLogicImpl implements NewsLogic {
 
     private final DaoProvider provider = DaoProvider.getInstance();
-    private final InformationDao dao = provider.getInfoDao();
+    private final NewsDao dao = provider.getNewsDao();
 
     @Override
-    public List<ContactCommunication> allConnectionsWithUs() throws LogicException {
+    public List<News> displayAllNews() throws LogicException {
 
         try {
-            return dao.allConnectionsWithUs();
+            return dao.displayAllNews();
         } catch (DaoException e) {
             throw new LogicException(e);
         }
@@ -26,10 +27,10 @@ public class InformationLogicImpl implements InformationLogic {
     }
 
     @Override
-    public AboutInfo infoAbout() throws LogicException {
+    public List<NewsCategories> displayAllNewsCategories() throws LogicException {
 
         try {
-            return dao.infoAbout();
+            return dao.displayAllNewsCategories();
         } catch (DaoException e) {
             throw new LogicException(e);
         }
@@ -37,10 +38,10 @@ public class InformationLogicImpl implements InformationLogic {
     }
 
     @Override
-    public List<Update> allUpdatesWithUs() throws LogicException {
+    public News infoNews(News news) throws LogicException {
 
         try {
-            return dao.allUpdatesWithUs();
+            return dao.infoNews(news);
         } catch (DaoException e) {
             throw new LogicException(e);
         }
@@ -48,10 +49,10 @@ public class InformationLogicImpl implements InformationLogic {
     }
 
     @Override
-    public boolean addUpdate(Update update) throws LogicException {
+    public List<News> searchNews(String meaning) throws LogicException {
 
         try {
-            return dao.addUpdate(update);
+            return dao.searchNews(meaning);
         } catch (DaoException e) {
             throw new LogicException(e);
         }
@@ -59,10 +60,10 @@ public class InformationLogicImpl implements InformationLogic {
     }
 
     @Override
-    public boolean addContact(ContactCommunication contactCommunication) throws LogicException {
+    public List<News> searchCategoriesNews(int idCategories) throws LogicException {
 
         try {
-            return dao.addContact(contactCommunication);
+            return dao.searchCategoriesNews(idCategories);
         } catch (DaoException e) {
             throw new LogicException(e);
         }
@@ -70,10 +71,10 @@ public class InformationLogicImpl implements InformationLogic {
     }
 
     @Override
-    public boolean addComment(Comment comment) throws LogicException {
+    public boolean addNews(News news) throws LogicException {
 
         try {
-            return dao.addComment(comment);
+            return dao.addNews(news);
         } catch (DaoException e) {
             throw new LogicException(e);
         }
@@ -81,10 +82,10 @@ public class InformationLogicImpl implements InformationLogic {
     }
 
     @Override
-    public List<Comment> allCommentWithUs(News news) throws LogicException {
+    public boolean editNews(News news) throws LogicException {
 
         try {
-            return dao.allCommentWithUs(news);
+            return dao.editNews(news);
         } catch (DaoException e) {
             throw new LogicException(e);
         }
@@ -92,10 +93,10 @@ public class InformationLogicImpl implements InformationLogic {
     }
 
     @Override
-    public boolean deleteComment(Comment comment) throws LogicException {
+    public boolean deleteNews(News news) throws LogicException {
 
         try {
-            return dao.deleteComment(comment);
+            return dao.deleteNews(news);
         } catch (DaoException e) {
             throw new LogicException(e);
         }

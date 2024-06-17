@@ -303,3 +303,290 @@ footer #right {
 #functionChoice:hover {
     background-color: #F77408;
 }
+
+/* Стили для статей */
+
+#article {
+	width: 78%;
+	margin-left: 10%;
+	background-color: #f6f6f6;
+	padding: 1%;
+	float: left;
+}
+
+#article img {
+	width: 30%;
+	float: right;
+	margin-bottom: 10px;
+}
+
+#functionReadNews a {
+    padding: 8px 20px;
+    background-color: #505050;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+#functionReadNews a:hover {
+    background-color: #F77408;
+}
+
+#article div {
+    margin-top: 100px;
+    margin-bottom: 100px;
+
+}
+
+#divider {
+    border-top: 3px solid black;
+}
+
+#article a:hover {
+    color: #000000;
+}
+
+#article h2 {
+	font-weight: normal;
+	font-size: 1.4em;
+	color: #636363;
+	font-family: Comic Sans MS, sans-serif;
+}
+
+#article p {
+	width: 90%;
+	margin-left: 5;
+}
+
+#article div.more {
+	padding: 5px;
+	border-radius: 5px;
+	background-color: #878787;
+	color: #fff;
+	width: 10%;
+	text-align: center;
+	margin-top: 10px;
+}
+
+#article div.more:hover {
+	background-color: #a2a2a2;
+}
+
+/* Стили для сраницы newsInfo*/
+
+#newsInfo {
+	width: 76%;
+	margin-left: 10%;
+	border: 1px solid silver;
+	background-color: #f4f4f4;
+	padding: 2%;
+}
+
+#functionDeleteNews a {
+    padding: 10px 20px;
+    background-color: #505050;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+#functionDeleteNews a:hover {
+    background-color: #F77408;
+}
+
+#functionEditNews button {
+    padding: 10px 20px;
+    background-color: #505050;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#functionEditNews button:hover {
+    background-color: #F77408;
+}
+
+#functionAddNews button {
+    padding: 10px 20px;
+    background-color: #505050;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#functionAddNews button:hover {
+    background-color: #F77408;
+}
+
+/* Стили для поиска и категории news*/
+
+#search_form_news {
+	width: 80%;
+	margin-left: 10%;
+	border: 1px solid silver;
+	background-color: #f4f4f4;
+	margin-top: 20px;
+}
+
+#search_form_news input{
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 300px;
+}
+
+#search_form_news button{
+    padding: 10px 20px;
+    background-color: #505050;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#search_form_news button:hover {
+    background-color: #F77408;
+}
+
+ /* Стили для модального окна */
+
+#editFormNews, #newsComment, #addNews {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+#editNewsContent, #newsCommentContent, #addNewsContent {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+#editFormNews, #newsComment, #addNews .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#editFormNews, #newsComment, #addNews .close:hover,.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#titleEditNews, #titleMyModal {
+
+    width: 600px;
+    height: 45px;
+    padding: 10px;
+    font-size: 16px;
+
+}
+
+#shortDescriptionEditNews, #shortDescriptionMyModal {
+    width: 600px;
+    height: 45px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#contentEditNews, #contentComment, #contentMyModal {
+    width: 1000px;
+    height: 500px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+ /* Стили для комментариев */
+
+#commentsContainer {
+    width: 60%;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#commentsContainer h2 {
+    text-align: center;
+    color: #333;
+}
+
+#commentsList .comment {
+    background: #fafafa;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+}
+
+
+#commentContent {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+#commentAuthor {
+    font-size: 12px;
+    color: #aaa;
+}
+
+#functionDeleteComment a {
+    padding: 4px 10px;
+    background-color: #505050;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+#functionDeleteComment a:hover {
+    background-color: #F77408;
+}
+
+#functionAddNewsComment button {
+    padding: 10px 20px;
+    background-color: #505050;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#functionAddNewsComment button:hover {
+    background-color: #F77408;
+}
+

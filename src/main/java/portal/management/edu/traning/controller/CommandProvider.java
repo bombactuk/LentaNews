@@ -2,11 +2,15 @@ package portal.management.edu.traning.controller;
 
 import portal.management.edu.traning.controller.impl.command.NoSuchCommand;
 import portal.management.edu.traning.controller.impl.command.admin.FunctionSamplingCommand;
+import portal.management.edu.traning.controller.impl.command.comment.CommentAddCommand;
+import portal.management.edu.traning.controller.impl.command.comment.CommentDeleteCommand;
+import portal.management.edu.traning.controller.impl.command.news.*;
 import portal.management.edu.traning.controller.impl.command.update.UpdateAddCommand;
 import portal.management.edu.traning.controller.impl.command.user.UserAuthorizationCommand;
 import portal.management.edu.traning.controller.impl.command.user.UserLogoutCommand;
 import portal.management.edu.traning.controller.impl.command.user.UserRegistrationCommand;
 import portal.management.edu.traning.controller.impl.command.user.UserTokenResetCommand;
+import portal.management.edu.traning.controller.impl.command.contact.ContactCommunicationAddCommand;
 import portal.management.edu.traning.controller.impl.pagetransition.*;
 
 import java.util.HashMap;
@@ -28,6 +32,7 @@ public class CommandProvider {
         this.repository.put(CommandName.GO_TO_PROFILE_PAGE, new GoToProfilePage());
         this.repository.put(CommandName.GO_TO_ADMIN_PAGE, new GoToAdminPage());
         this.repository.put(CommandName.GO_TO_NEWS_PAGE, new GoToNewsPage());
+        this.repository.put(CommandName.GO_TO_NEWS_INFO_PAGE, new GoToNewsInfoPage());
 
         this.repository.put(CommandName.USER_AUTHORIZATION, new UserAuthorizationCommand());
         this.repository.put(CommandName.USER_REGISTRATION, new UserRegistrationCommand());
@@ -37,6 +42,17 @@ public class CommandProvider {
         this.repository.put(CommandName.ADMIN_FUNCTION_SAMPLING, new FunctionSamplingCommand());
 
         this.repository.put(CommandName.UPDATE_ADD, new UpdateAddCommand());
+
+        this.repository.put(CommandName.NEWS_SEARCH, new NewsSearchCommand());
+        this.repository.put(CommandName.NEWS_SEARCH_CATEGORIES, new NewsSearchCategoriesCommand());
+        this.repository.put(CommandName.NEWS_ADD, new NewsAddCommand());
+        this.repository.put(CommandName.NEWS_EDIT, new NewsEditCommand());
+        this.repository.put(CommandName.NEWS_DELETE, new NewsDeleteCommand());
+
+        this.repository.put(CommandName.COMMENT_ADD, new CommentAddCommand());
+        this.repository.put(CommandName.COMMENT_DELETE, new CommentDeleteCommand());
+
+        this.repository.put(CommandName.CONTACT_ADD, new ContactCommunicationAddCommand());
 
     }
 

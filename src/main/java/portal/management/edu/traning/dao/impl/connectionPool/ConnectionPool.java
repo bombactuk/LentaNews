@@ -94,8 +94,6 @@ public class ConnectionPool {
 
                     DriverManager.deregisterDriver(driver);
 
-                    LOGGER.info("Deregistered JDBC driver: " + driver);
-
                 } catch (SQLException e) {
 
                     LOGGER.log(Level.SEVERE, "Error deregister JDBC driver: " + driver);
@@ -104,8 +102,6 @@ public class ConnectionPool {
 
                 com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.checkedShutdown();
 
-                LOGGER.info("AbandonedConnectionCleanupThread stopped");
-
             }
 
         } catch (Exception e) {
@@ -113,8 +109,6 @@ public class ConnectionPool {
             LOGGER.log(Level.SEVERE, "Error during connection pool disposal", e);
 
         }
-
-        LOGGER.log(Level.INFO, "Connection pool disposed successfully");
 
     }
 
@@ -187,6 +181,7 @@ public class ConnectionPool {
                 st.close();
 
                 return true;
+
             }
 
         } catch (SQLException e) {
@@ -210,6 +205,7 @@ public class ConnectionPool {
                 con.close();
 
                 return true;
+
             }
 
         } catch (SQLException e) {
@@ -232,6 +228,7 @@ public class ConnectionPool {
                 rs.close();
 
                 return true;
+
             }
 
         } catch (SQLException e) {

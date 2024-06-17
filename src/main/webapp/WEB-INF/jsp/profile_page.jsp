@@ -23,10 +23,10 @@
 
         <c:set var="infoUser" value="${requestScope.infoUser}" />
 
-        <h2> Имя: ${infoUser.name} </h2>
-        <p >День Рождение: ${infoUser.birthday} </p>
-        <p> Страна: ${infoUser.country} </p>
-        <a href="urlToServlet?command=user_logout">Выйти с аккаунта</a>
+        <h2> Name: ${infoUser.name} </h2>
+        <p >Birthday: ${infoUser.birthday} </p>
+        <p> Country: ${infoUser.country} </p>
+        <a href="urlToServlet?command=user_logout">Log out of your account</a>
 
 	</div>
 

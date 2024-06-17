@@ -21,8 +21,8 @@
 
     <div id="functionAdminProfile">
 
-        <a href="urlToServlet?command=user_logout">Выйти с аккаунта</a>
-        <a href="urlToServlet?command=user_token_reset">Обнулить токен пользователей</a>
+        <a href="urlToServlet?command=user_logout">Log out of your account</a>
+        <a href="urlToServlet?command=user_token_reset">Reset user token</a>
 
     </div>
 
@@ -32,14 +32,15 @@
 
         <input type="hidden" name="command" value="admin_function_sampling"/>
 
-        <select class="form-control" id="functionAdmin" placeholder="Функции администратора" name="function" required>
+        <select class="form-control" id="functionAdmin" placeholder="Administrator Functions" name="function" required>
 
-            <option value="">Выберите функцию</option>
-            <option value="addUpdate">Добавление обновлений</option>
+            <option value="">Select function</option>
+            <option value="addUpdate">Adding updates</option>
+            <option value="addContact"> Adding a connection with us</option>
 
         </select>
 
-        <button id="functionChoice" type="submit" class="btn btn-primary">Выбрать</button>
+        <button id="functionChoice" type="submit" class="btn btn-primary">Choose</button>
 
     </form>
 
@@ -61,13 +62,35 @@
 
                 <input type="hidden" name="command" value="update_add"/>
 
-                <input type="text" placeholder="Заголовок" id="titleUpdate" name="title" required>
+                <input type="text" placeholder="Heading" id="titleUpdate" name="title" required>
 
-                <input type="text" placeholder="Текст" id="content" name="content" required>
+                <input type="text" placeholder="Text" id="content" name="content" required>
 
                 <input type="hidden" name="idAdmin" value="${sessionScope.user.idUser}"/>
 
-                <button id="btnAdminFunction" type="submit" class="btn btn-primary">Добавить</button>
+                <button id="btnAdminFunction" type="submit" class="btn btn-primary">Add</button>
+
+            </form>
+
+        </div>
+
+    </c:if>
+
+    <c:if test="${(param.functionCommand eq 'addContact')}">
+
+        <div id="formFunction">
+
+            <form action="urlToServlet" method="post">
+
+                <input type="hidden" name="command" value="contact_add"/>
+
+                <input type="text" placeholder="Image" id="imgContact" name="img" required>
+
+                <input type="text" placeholder="Link" id="linkContact" name="link" required>
+
+                <input type="hidden" name="idAdmin" value="${sessionScope.user.idUser}"/>
+
+                <button id="btnAdminFunction" type="submit" class="btn btn-primary">Add</button>
 
             </form>
 

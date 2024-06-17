@@ -22,7 +22,7 @@
             <div id="regAuth">
 
                 <a href="urlToServlet?command=go_to_profile_page&idUser=${sessionScope.user.idUser}">
-                    Профиль пользователя
+                    User profile
                 </a>
 
             </div>
@@ -33,7 +33,7 @@
 
             <div id="regAuth">
 
-                <a href="urlToServlet?command=go_to_admin_page">Профиль админестратора</a>
+                <a href="urlToServlet?command=go_to_admin_page">Administrator profile</a>
 
             </div>
 

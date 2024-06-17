@@ -3,6 +3,7 @@ package portal.management.edu.traning.controller;
 public enum CommandName {
 
     WRONG_REQUEST,
+
     GO_TO_UPDATES_PAGE,
     GO_TO_AUTHORIZATION_PAGE,
     GO_TO_REGISTRATION_PAGE,
@@ -11,11 +12,27 @@ public enum CommandName {
     GO_TO_PROFILE_PAGE,
     GO_TO_ADMIN_PAGE,
     GO_TO_NEWS_PAGE,
+    GO_TO_NEWS_INFO_PAGE,
+
     USER_AUTHORIZATION,
     USER_REGISTRATION,
     USER_TOKEN_RESET,
     USER_LOGOUT,
+
     ADMIN_FUNCTION_SAMPLING,
-    UPDATE_ADD
+
+    UPDATE_ADD,
+
+    NEWS_SEARCH,
+    NEWS_SEARCH_CATEGORIES,
+    NEWS_ADD,
+    NEWS_EDIT,
+    NEWS_DELETE,
+
+    COMMENT_ADD,
+    COMMENT_DELETE,
+
+    CONTACT_ADD
+
 
 }

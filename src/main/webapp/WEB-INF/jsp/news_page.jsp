@@ -19,9 +19,152 @@
 
     <jsp:include page="/WEB-INF/blocks/authorized_user_header.jsp" />
 
+    <div>
 
+        <c:if test="${not (param.messageFunctions eq null) }">
+
+            <c:out value="${param.messageFunctions}" />
+
+        </c:if>
+
+    </div>
+
+    <div id="search_form_news">
+
+        <form action="urlToServlet" method="post">
+
+            <input type="hidden" name="command" value="news_search"/>
+            <input type="search" name="query" placeholder="Search...">
+            <button type="submit">Find</button>
+
+        </form>
+
+        <form action="urlToServlet" method="post">
+
+            <input type="hidden" name="command" value="news_search_categories"/>
+
+                <select class="form-control" placeholder="Administrator Functions" name="idCategories" required>
+
+                    <option value="">Select a category</option>
+                    <option value="0">All news</option>
+
+                    <c:forEach var="categoriesList" items="${categories}">
+
+                        <option value="${categoriesList.idCategories}">${categoriesList.type}</option>
+
+                    </c:forEach>
+
+                </select>
+
+            <button id="functionChoice" type="submit" class="btn btn-primary">Choose</button>
+
+        </form>
+
+        <c:if test="${(sessionScope.user.role eq 'Admin')}">
+
+                <button id="btnAddNews">Add news</button>
+
+                <div id="addNews" class="modal">
+
+                    <div id="addNewsContent" class="modal-content">
+
+                        <span class="close">&times;</span>
+
+                            <h2>Add news</h2>
+
+                            <form action="urlToServlet" method="post">
+
+                                <input type="hidden" name="command" value="news_add"/>
+
+                                <input type="hidden" name="idAdmin" value="${sessionScope.user.idUser}"/>
+
+                                <label for="title">Title:</label>
+                                <input type="text" id="titleMyModal" name="title" required><br><br>
+
+                                <label for="shortDescription"> Short Description:</label>
+                                <input type="text" id="shortDescriptionMyModal" name="short_description" required><br><br>
+
+                                <label for="content"> Content:</label>
+                                <textarea type="text" id="contentMyModal" name="content" required></textarea><br><br>
+
+                                <label for="categories"> Categories:</label>
+                                <select class="form-control" placeholder="Administrator Functions" name="idCategories" required>
+
+                                    <c:forEach var="categoriesList" items="${categories}">
+
+                                        <option value="${categoriesList.idCategories}">${categoriesList.type}</option>
+
+                                    </c:forEach>
+
+                                </select><br><br>
+
+                                <button type="submit">Add</button>
+
+                            </form>
+
+                    </div>
+
+                </div>
+
+            </c:if>
+
+    </div>
+
+    <div id="article" class="article">
+
+        <c:forEach var="news" items="${requestScope.news}">
+
+    	    <h2 class="news-title">${news.title}</h2>
+
+    	    <p class="news-text">${news.shortDescription}</p>
+
+    	    <div id="functionReadNews">
+
+    	        <a class="news-link" href="urlToServlet?command=go_to_news_info_page&idNews=${news.idNews}" />Read</a>
+
+    	    </div>
+
+    	    <p class="news-date">${news.postDate}</p>
+
+    	    <hr id="divider">
+
+    	</c:forEach>
+
+    </div>
 
     <jsp:include page="/WEB-INF/blocks/footer.jsp" />
+
+    <script>
+
+        var modal = document.getElementById("addNews");
+
+        var btn = document.getElementById("btnAddNews");
+
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function() {
+
+            modal.style.display = "block";
+
+        }
+
+        span.onclick = function() {
+
+            modal.style.display = "none";
+
+        }
+
+        window.onclick = function(event) {
+
+            if (event.target == modal) {
+
+                modal.style.display = "none";
+
+            }
+
+        }
+
+    </script>
 
 </body>
 

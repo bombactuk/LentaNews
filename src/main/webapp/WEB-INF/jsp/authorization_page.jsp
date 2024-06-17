@@ -45,19 +45,19 @@
 
 			    </c:if>
 
-			    <input type="email" id="inputEmail" class="form-control" placeholder="Email адрес" name="login" required autofocus>
+			    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="login" required autofocus>
 
-			    <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" name="password" required>
+			    <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
 
-                <label id="remember_me">Запомнить меня</label>
+                <label id="remember_me">Remember me</label>
 
                 <input type="checkbox" value="remember-me" name="remember-me">
 
-			    <button id="btn" class="btn btn-lg btn-success btn-block" type="submit">Войти</button>
+			    <button id="btn" class="btn btn-lg btn-success btn-block" type="submit">To come in</button>
 
 			    <div class="text-center mt-2">
 
-				    <a href="urlToServlet?command=go_to_registration_page">Регистрация нового аккаунта</a>
+				    <a href="urlToServlet?command=go_to_registration_page">Registering a new account</a>
 
 			    </div>
 

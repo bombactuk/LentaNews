@@ -16,8 +16,8 @@
 
         </ul>
 
-        <div id="regAuth"><a href="urlToServlet?command=go_to_registration_page">Регистрация</a> |
-        <a href="urlToServlet?command=go_to_authorization_page">Авторизация</a></div>
+        <div id="regAuth"><a href="urlToServlet?command=go_to_registration_page">Registration</a> |
+        <a href="urlToServlet?command=go_to_authorization_page">Authorization</a></div>
 
     </nav>
 

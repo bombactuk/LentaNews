@@ -48,38 +48,37 @@
             </div>
 
 			<div class="form-group">
-			    <input type="text" class="form-control" placeholder="Email адрес" id="username" name="username" required>
+			    <input type="text" class="form-control" placeholder="Email address" id="username" name="username" required>
 			</div>
 
 			<div class="form-group">
-	 			<input type="password" class="form-control" placeholder="Пароль" id="password" name="password" required>
+	 			<input type="password" class="form-control" placeholder="Password" id="password" name="password" required>
 			</div>
 
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Имя" id="name" name="name" required>
+				<input type="text" class="form-control" placeholder="Name" id="name" name="name" required>
 			</div>
 
 			<div class="form-group">
-				<input type="date" class="form-control" placeholder="Дата рождения" id="dob" name="dob" required>
+				<input type="date" class="form-control" placeholder="Date of Birth" id="dob" name="dob" required>
 			</div>
 
 			<div class="form-group">
 
-			    <select class="form-control" id="country" placeholder="Страна Проживания" name="country" required>
+			    <select class="form-control" id="country" placeholder="Country of Residence" name="country" required>
 
-					<option value="">Выберите страну</option>
-					<option value="russia">Россия</option>
-					<option value="usa">США</option>
-					<option value="germany">Германия</option>
-					<option value="france">Франция</option>
-					<option value="belarus">Беларусь</option>
-					<!-- Добавьте другие страны по необходимости -->
+					<option value="">Choose the country</option>
+					<option value="russia">Russia</option>
+					<option value="usa">USA</option>
+					<option value="germany">Germany</option>
+					<option value="france">France</option>
+					<option value="belarus">Belarus</option>
 
 				</select>
 
 			</div>
 
-			<button id="btnRegistration" type="submit" class="btn btn-primary">Зарегистрироваться</button>
+			<button id="btnRegistration" type="submit" class="btn btn-primary">Register</button>
 
 		</form>
 
