@@ -7,7 +7,7 @@ import portal.management.edu.traning.entity.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserMapper implements MapperResultSet<User> {
+public class UserRoleMapper implements MapperResultSet<User> {
 
     @Override
     public User map(ResultSet resultSet) throws SQLException {
@@ -15,7 +15,7 @@ public class UserMapper implements MapperResultSet<User> {
         return new User(
 
                 resultSet.getInt(ConstantsForInquiriesResultSet.RESULT_SET_USER_ID),
-                resultSet.getInt(ConstantsForInquiriesResultSet.RESULT_SET_INFO_USER_ID)
+                resultSet.getString(ConstantsForInquiriesResultSet.RESULT_SET_TITLE)
 
         );
 

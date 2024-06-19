@@ -1,4 +1,4 @@
-package portal.management.edu.traning.controller.impl.command.admin;
+package portal.management.edu.traning.controller.impl.command.locale;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -6,13 +6,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import portal.management.edu.traning.controller.Command;
 
 import java.io.IOException;
+import java.util.Locale;
 
-public class FunctionSamplingCommand implements Command {
+public class LocaleSetCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.sendRedirect("urlToServlet?command=go_to_admin_page&functionCommand=" + request.getParameter("function"));
+        Locale locale = new Locale(request.getParameter("language"));
+        request.getSession().setAttribute("locale", locale);
+
+        response.sendRedirect(request.getHeader("Referer"));
 
     }
 
