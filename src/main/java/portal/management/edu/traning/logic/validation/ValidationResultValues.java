@@ -42,6 +42,8 @@ public class ValidationResultValues {
             Matcher loginMatcher = loginPattern.matcher(login);
 
             if (!loginMatcher.matches()) {
+
+                errors.delete(0,errors.length());
                 errors.append("122");
             }
 
@@ -57,6 +59,7 @@ public class ValidationResultValues {
 
             if (!passwordMatcher.matches()) {
 
+                errors.delete(0,errors.length());
                 errors.append("121");
 
             }
@@ -72,7 +75,10 @@ public class ValidationResultValues {
             Matcher nameMatcher = namePattern.matcher(name);
 
             if (!nameMatcher.matches()) {
+
+                errors.delete(0,errors.length());
                 errors.append("120");
+
             }
 
             return this;
@@ -83,6 +89,7 @@ public class ValidationResultValues {
 
             if (login == null || password == null) {
 
+                errors.delete(0,errors.length());
                 errors.append("108");
 
             }
@@ -95,6 +102,7 @@ public class ValidationResultValues {
 
             if (login == null || password == null || name == null || country == null) {
 
+                errors.delete(0,errors.length());
                 errors.append("119");
 
             }

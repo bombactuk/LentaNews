@@ -76,7 +76,7 @@
 
         </form>
 
-        <c:if test="${(sessionScope.user.role eq ('Admin'|| 'Editor' ) )}">
+        <c:if test="${(sessionScope.user.role eq 'Admin' )}">
 
                 <button id="btnAddNews"> <fmt:message key="news_button_add"/> </button>
 

@@ -69,7 +69,7 @@
 
     </div>
 
-	<c:if test="${(sessionScope.user.role eq ('Admin'|| 'Editor') )}">
+	<c:if test="${(sessionScope.user.role eq 'Admin' )}">
 
         <div id="functionEditNews">
 
@@ -176,7 +176,7 @@
                     <p id="commentContent">${comment.content}</p>
                     <p id="commentAuthor"> <fmt:message key="news_info_text_comments_by"/> ${comment.nameUser} <fmt:message key="news_info_text_comments_on"/> ${comment.datePost}</p>
 
-                    <c:if test="${(sessionScope.user.role eq ('Admin' || 'Editor'))||(sessionScope.user.idUser eq comment.idUser)}">
+                    <c:if test="${(sessionScope.user.role eq 'Admin')||(sessionScope.user.idUser eq comment.idUser)}">
 
                         <div id="functionDeleteComment">
 

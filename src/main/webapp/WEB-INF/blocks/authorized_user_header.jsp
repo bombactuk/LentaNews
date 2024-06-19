@@ -23,7 +23,7 @@
 
         </ul>
 
-        <c:if test="${(sessionScope.user.role eq ('User' || 'Editor') )}">
+        <c:if test="${(sessionScope.user.role eq 'User' )}">
 
             <div id="regAuth">
 
