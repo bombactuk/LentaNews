@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page isELIgnored="false" %>
+
+<fmt:setLocale value="${sessionScope.locale}" />
+<fmt:setBundle basename="messages" />
+
 <!DOCTYPE html>
 
 <html>
@@ -31,7 +37,7 @@
 
 	<div id="containerRegistr" class="container mt-5">
 
-		<h2>User<span id="logoRegistr">Registration</span></h2>
+		<h2> <fmt:message key="registration_text_user"/> <span id="logoRegistr"> <fmt:message key="registration_text_registration"/> </span></h2>
 
 		<form action="urlToServlet" method="post">
 
@@ -41,44 +47,67 @@
 
                 <c:if test="${not (param.regError eq null) }">
 
-                    <c:out value="${param.regError}" />
+                    <c:if test="${ (param.regError eq '119') }">
+
+                        <p> <fmt:message key="registration_error_119"/> </p>
+
+                    </c:if>
+
+                    <c:if test="${ (param.regError eq '120') }">
+
+                        <p> <fmt:message key="registration_error_120"/> </p>
+
+                    </c:if>
+
+                    <c:if test="${ (param.regError eq '121') }">
+
+                        <p> <fmt:message key="registration_error_121"/> </p>
+
+                    </c:if>
+
+                    <c:if test="${ (param.regError eq '122') }">
+
+                        <p> <fmt:message key="registration_error_122"/> </p>
+
+                    </c:if>
+
 
                 </c:if>
 
             </div>
 
 			<div class="form-group">
-			    <input type="text" class="form-control" placeholder="Email address" id="username" name="username" required>
+			    <input type="text" class="form-control" placeholder="<fmt:message key="registration_text_email"/>" id="username" name="username" required>
 			</div>
 
 			<div class="form-group">
-	 			<input type="password" class="form-control" placeholder="Password" id="password" name="password" required>
+	 			<input type="password" class="form-control" placeholder="<fmt:message key="registration_text_password"/>" id="password" name="password" required>
 			</div>
 
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Name" id="name" name="name" required>
+				<input type="text" class="form-control" placeholder="<fmt:message key="registration_text_name"/>" id="name" name="name" required>
 			</div>
 
 			<div class="form-group">
-				<input type="date" class="form-control" placeholder="Date of Birth" id="dob" name="dob" required>
+				<input type="date" class="form-control" placeholder="<fmt:message key="registration_text_birth"/>" id="dob" name="dob" required>
 			</div>
 
 			<div class="form-group">
 
-			    <select class="form-control" id="country" placeholder="Country of Residence" name="country" required>
+			    <select class="form-control" id="country" placeholder="<fmt:message key="registration_text_country"/>" name="country" required>
 
-					<option value="">Choose the country</option>
-					<option value="russia">Russia</option>
-					<option value="usa">USA</option>
-					<option value="germany">Germany</option>
-					<option value="france">France</option>
-					<option value="belarus">Belarus</option>
+					<option value=""> <fmt:message key="registration_text_choose"/> </option>
+					<option value="russia"> <fmt:message key="registration_text_russia"/> </option>
+					<option value="usa"> <fmt:message key="registration_text_usa"/> </option>
+					<option value="germany"> <fmt:message key="registration_text_germany"/> </option>
+					<option value="france"> <fmt:message key="registration_text_france"/> </option>
+					<option value="belarus"> <fmt:message key="registration_text_belarus"/> </option>
 
 				</select>
 
 			</div>
 
-			<button id="btnRegistration" type="submit" class="btn btn-primary">Register</button>
+			<button id="btnRegistration" type="submit" class="btn btn-primary"> <fmt:message key="registration_button_register"/> </button>
 
 		</form>
 

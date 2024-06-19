@@ -1,6 +1,5 @@
 package portal.management.edu.traning.logic;
 
-import com.mysql.cj.log.Log;
 import portal.management.edu.traning.entity.*;
 
 import java.util.List;
@@ -10,6 +9,8 @@ public interface InformationLogic {
     List<ContactCommunication> allConnectionsWithUs() throws LogicException;
 
     AboutInfo infoAbout() throws LogicException;
+
+    boolean editAbout(AboutInfo aboutInfo) throws LogicException;
 
     List<Update> allUpdatesWithUs() throws LogicException;
 

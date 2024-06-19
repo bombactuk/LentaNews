@@ -10,7 +10,6 @@ import portal.management.edu.traning.logic.LogicException;
 import portal.management.edu.traning.logic.LogicProvider;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class CommentDeleteCommand implements Command {
 
@@ -29,14 +28,14 @@ public class CommentDeleteCommand implements Command {
             if (logicInfo.deleteComment(comment)) {
 
                 response.sendRedirect("urlToServlet?command=go_to_news_info_page&" +
-                        "editAnswer=Comment delete successful!&" +
+                        "editAnswer=113&" +
                         "idNews=" + request.getParameter("idNews"));
 
             } else {
 
                 response.sendRedirect("urlToServlet?command=go_to_news_info_page&" +
-                        "editAnswer=Comment delete not edited!&" +
-                        "idNews="+ request.getParameter("idNews"));
+                        "editAnswer=114&" +
+                        "idNews=" + request.getParameter("idNews"));
 
             }
 

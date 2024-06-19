@@ -1,12 +1,10 @@
 package portal.management.edu.traning.controller.impl.command.comment;
 
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import portal.management.edu.traning.controller.Command;
 import portal.management.edu.traning.entity.Comment;
-import portal.management.edu.traning.entity.ContactCommunication;
 import portal.management.edu.traning.logic.InformationLogic;
 import portal.management.edu.traning.logic.LogicException;
 import portal.management.edu.traning.logic.LogicProvider;
@@ -34,14 +32,14 @@ public class CommentAddCommand implements Command {
             if (logicInfo.addComment(comment)) {
 
                 response.sendRedirect("urlToServlet?command=go_to_news_info_page&" +
-                        "editAnswer=Comment add successful!&" +
+                        "editAnswer=111&" +
                         "idNews=" + request.getParameter("idNews"));
 
             } else {
 
                 response.sendRedirect("urlToServlet?command=go_to_news_info_page&" +
-                        "editAnswer=Comment add not edited!&" +
-                        "idNews="+ request.getParameter("idNews"));
+                        "editAnswer=112&" +
+                        "idNews=" + request.getParameter("idNews"));
 
             }
 

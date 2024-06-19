@@ -3,7 +3,7 @@ package portal.management.edu.traning.controller.listener;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
-import portal.management.edu.traning.dao.impl.connectionPool.ConnectionPool;
+import portal.management.edu.traning.dao.impl.connection_pool.ConnectionPool;
 
 @WebListener
 

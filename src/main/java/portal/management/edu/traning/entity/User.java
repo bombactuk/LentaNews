@@ -13,6 +13,8 @@ public class User implements Serializable {
     private String role;
     private String token;
 
+    private int idInfoUser;
+
     public User() {
     }
 
@@ -33,6 +35,19 @@ public class User implements Serializable {
     public User(int idUser, String role) {
         this.idUser = idUser;
         this.role = role;
+    }
+
+    public User(int idUser, int idInfoUser) {
+        this.idUser = idUser;
+        this.idInfoUser = idInfoUser;
+    }
+
+    public int getIdInfoUser() {
+        return idInfoUser;
+    }
+
+    public void setIdInfoUser(int idInfoUser) {
+        this.idInfoUser = idInfoUser;
     }
 
     public int getIdUser() {
@@ -64,12 +79,12 @@ public class User implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return idUser == user.idUser && Objects.equals(role, user.role) && Objects.equals(token, user.token);
+        return idUser == user.idUser && idInfoUser == user.idInfoUser && Objects.equals(role, user.role) && Objects.equals(token, user.token);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idUser, role, token);
+        return Objects.hash(idUser, role, token, idInfoUser);
     }
 
     @Override
@@ -78,6 +93,7 @@ public class User implements Serializable {
                 "idUser=" + idUser +
                 ", role='" + role + '\'' +
                 ", token='" + token + '\'' +
+                ", idInfoUser=" + idInfoUser +
                 '}';
     }
 

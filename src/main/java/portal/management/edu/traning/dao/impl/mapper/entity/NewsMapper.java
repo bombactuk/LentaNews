@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class NewsMapper implements MapperResultSet<News> {
+
     @Override
     public News map(ResultSet resultSet) throws SQLException {
 

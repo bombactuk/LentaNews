@@ -14,12 +14,12 @@ import java.util.logging.Logger;
 
 @WebListener
 
-public class ContactsInitializerListener implements ServletContextListener {
+public class InitializingContactWithUsListener implements ServletContextListener {
 
     private final LogicProvider logicProvider = LogicProvider.getInstance();
     private final InformationLogic infoLogic = logicProvider.getLogicInfo();
 
-    private static final Logger LOGGER = Logger.getLogger(ContactsInitializerListener.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(InitializingContactWithUsListener.class.getName());
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {

@@ -82,4 +82,15 @@ public class UserLogicImpl implements UserLogic {
 
     }
 
+    @Override
+    public boolean editInfoUser(UserInfo userInfo, User user) throws LogicException {
+
+        try {
+            return dao.editInfoUser(userInfo, user);
+        } catch (DaoException e) {
+            throw new LogicException(e);
+        }
+
+    }
+
 }

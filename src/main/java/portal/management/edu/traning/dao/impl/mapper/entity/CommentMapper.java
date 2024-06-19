@@ -1,5 +1,6 @@
 package portal.management.edu.traning.dao.impl.mapper.entity;
 
+import portal.management.edu.traning.dao.impl.mapper.ConstantsForInquiriesResultSet;
 import portal.management.edu.traning.dao.impl.mapper.MapperResultSet;
 import portal.management.edu.traning.entity.Comment;
 
@@ -14,11 +15,11 @@ public class CommentMapper implements MapperResultSet<Comment> {
 
         return new Comment(
 
-                resultSet.getInt("id_comments"),
-                resultSet.getString("content"),
-                LocalDate.parse(resultSet.getString("date_post")),
-                resultSet.getInt("users_id_user"),
-                resultSet.getString("name")
+                resultSet.getInt(ConstantsForInquiriesResultSet.RESULT_SET_COMMENT_ID),
+                resultSet.getString(ConstantsForInquiriesResultSet.RESULT_SET_CONTENT),
+                LocalDate.parse(resultSet.getString(ConstantsForInquiriesResultSet.RESULT_SET_DATE_POST)),
+                resultSet.getInt(ConstantsForInquiriesResultSet.RESULT_SET_ID_USER_INFO),
+                resultSet.getString(ConstantsForInquiriesResultSet.RESULT_SET_NAME)
 
         );
 

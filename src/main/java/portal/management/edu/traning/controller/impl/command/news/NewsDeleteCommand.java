@@ -10,7 +10,6 @@ import portal.management.edu.traning.logic.LogicProvider;
 import portal.management.edu.traning.logic.NewsLogic;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class NewsDeleteCommand implements Command {
 

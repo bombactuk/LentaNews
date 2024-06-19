@@ -31,13 +31,13 @@ public class UpdateAddCommand implements Command {
 
             if (logicInfo.addUpdate(update)) {
 
-                response.sendRedirect("urlToServlet?command=go_to_admin_page&" +
-                        "functionError=Update was successful!");
+                response.sendRedirect("urlToServlet?command=go_to_updates_page&" +
+                        "functionError=123");
 
             } else {
 
-                response.sendRedirect("urlToServlet?command=go_to_admin_page&" +
-                        "functionError=Update was not successful!");
+                response.sendRedirect("urlToServlet?command=go_to_updates_page&" +
+                        "functionError=124");
 
             }
 

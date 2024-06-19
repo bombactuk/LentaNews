@@ -19,4 +19,6 @@ public interface UserDao {
 
     boolean resetTokenUser() throws DaoException;
 
+    boolean editInfoUser(UserInfo userInfo, User user) throws DaoException;
+
 }

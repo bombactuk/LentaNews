@@ -37,6 +37,17 @@ public class InformationLogicImpl implements InformationLogic {
     }
 
     @Override
+    public boolean editAbout(AboutInfo aboutInfo) throws LogicException {
+
+        try {
+            return dao.editAbout(aboutInfo);
+        } catch (DaoException e) {
+            throw new LogicException(e);
+        }
+
+    }
+
+    @Override
     public List<Update> allUpdatesWithUs() throws LogicException {
 
         try {

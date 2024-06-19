@@ -7,7 +7,6 @@ public enum CommandName {
     GO_TO_UPDATES_PAGE,
     GO_TO_AUTHORIZATION_PAGE,
     GO_TO_REGISTRATION_PAGE,
-    GO_TO_INDEX_PAGE,
     GO_TO_ABOUT_PAGE,
     GO_TO_PROFILE_PAGE,
     GO_TO_ADMIN_PAGE,
@@ -18,8 +17,9 @@ public enum CommandName {
     USER_REGISTRATION,
     USER_TOKEN_RESET,
     USER_LOGOUT,
+    USER_INFO_EDIT,
 
-    ADMIN_FUNCTION_SAMPLING,
+    ABOUT_US_EDIT,
 
     UPDATE_ADD,
 
@@ -32,7 +32,9 @@ public enum CommandName {
     COMMENT_ADD,
     COMMENT_DELETE,
 
-    CONTACT_ADD
+    CONTACT_ADD,
+
+    LOCALE_SET
 
 
 }

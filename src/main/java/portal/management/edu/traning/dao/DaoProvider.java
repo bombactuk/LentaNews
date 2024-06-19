@@ -27,7 +27,9 @@ public class DaoProvider {
         return infoDao;
     }
 
-    public NewsDao getNewsDao() {return newsDao; }
+    public NewsDao getNewsDao() {
+        return newsDao;
+    }
 
     public static DaoProvider getInstance() {
         return INSTANCE;

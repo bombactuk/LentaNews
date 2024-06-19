@@ -20,4 +20,6 @@ public interface UserLogic {
 
     boolean resetTokenUser() throws LogicException;
 
+    boolean editInfoUser(UserInfo userInfo, User user) throws LogicException;
+
 }

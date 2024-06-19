@@ -36,12 +36,12 @@ public class ContactCommunicationAddCommand implements Command {
                 context.setAttribute("contacts", logicInfo.allConnectionsWithUs());
 
                 response.sendRedirect("urlToServlet?command=go_to_admin_page&" +
-                        "functionError=Addition contact was successful!");
+                        "functionError=103");
 
             } else {
 
                 response.sendRedirect("urlToServlet?command=go_to_admin_page&" +
-                        "functionError=Adding contact was not successful!");
+                        "functionError=104");
 
             }
 

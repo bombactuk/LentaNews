@@ -2,9 +2,9 @@ package portal.management.edu.traning.dao.impl;
 
 import portal.management.edu.traning.dao.DaoException;
 import portal.management.edu.traning.dao.InformationDao;
-import portal.management.edu.traning.dao.impl.connectionPool.ConnectionPool;
+import portal.management.edu.traning.dao.impl.connection_pool.ConnectionPool;
 import portal.management.edu.traning.dao.impl.mapper.ResultSetBuilder;
-import portal.management.edu.traning.dao.impl.mapper.entity.AboutInfoMapper;
+import portal.management.edu.traning.dao.impl.mapper.entity.AboutMapper;
 import portal.management.edu.traning.dao.impl.mapper.entity.CommentMapper;
 import portal.management.edu.traning.dao.impl.mapper.entity.ContactCommunicationMapper;
 import portal.management.edu.traning.dao.impl.mapper.entity.UpdateMapper;
@@ -50,9 +50,42 @@ public class InformationDaoBase implements InformationDao {
 
             PreparedStatement prSt = dbConnection.prepareStatement(SELECT_INFO_ABOUT);
 
-            ResultSetBuilder<AboutInfo> aboutInfoBuilder = new ResultSetBuilder<>(new AboutInfoMapper());
+            ResultSetBuilder<AboutInfo> aboutInfoBuilder = new ResultSetBuilder<>(new AboutMapper());
 
             return aboutInfoBuilder.buildObj(prSt);
+
+        } catch (InterruptedException | SQLException e) {
+
+            throw new DaoException(e);
+
+        }
+
+    }
+
+    private static final String UPDATE_ABOUT_INTO_DATA_BASE = "UPDATE about_portal SET status = ? WHERE id_ubout_portal = ?";
+    private static final String INSERT_ABOUT_INTO_DATA_BASE = "INSERT INTO about_portal" +
+            " (content, date_post, status, id_admin) VALUES(?,?,?,?)";
+
+    @Override
+    public boolean editAbout(AboutInfo aboutInfo) throws DaoException {
+
+        try (Connection dbConnection = dataBase.takeConection()) {
+
+            PreparedStatement prSt = dbConnection.prepareStatement(UPDATE_ABOUT_INTO_DATA_BASE);
+
+            prSt.setString(1, ConstantsForPreparedStatementDaoBase.DB_STATUS_INACTIVE);
+            prSt.setInt(2, aboutInfo.getIdAbout());
+
+            prSt.executeUpdate();
+
+            prSt = dbConnection.prepareStatement(INSERT_ABOUT_INTO_DATA_BASE);
+
+            prSt.setString(1, aboutInfo.getContent());
+            prSt.setString(2, aboutInfo.getDate_post().toString());
+            prSt.setString(3, aboutInfo.getStatus());
+            prSt.setInt(4, aboutInfo.getIdAdmin());
+
+            return prSt.executeUpdate() > 0;
 
         } catch (InterruptedException | SQLException e) {
 

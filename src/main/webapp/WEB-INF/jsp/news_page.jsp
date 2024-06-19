@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page isELIgnored="false" %>
+
+<fmt:setLocale value="${sessionScope.locale}" />
+<fmt:setBundle basename="messages" />
+
 <!DOCTYPE html>
 
 <html>
@@ -23,7 +29,17 @@
 
         <c:if test="${not (param.messageFunctions eq null) }">
 
-            <c:out value="${param.messageFunctions}" />
+            <c:if test="${ (param.messageFunctions eq '115') }">
+
+                <p> <fmt:message key="news_error_115"/> </p>
+
+            </c:if>
+
+            <c:if test="${ (param.messageFunctions eq '116') }">
+
+                <p> <fmt:message key="news_error_116"/> </p>
+
+            </c:if>
 
         </c:if>
 
@@ -34,8 +50,8 @@
         <form action="urlToServlet" method="post">
 
             <input type="hidden" name="command" value="news_search"/>
-            <input type="search" name="query" placeholder="Search...">
-            <button type="submit">Find</button>
+            <input type="search" name="query" placeholder="<fmt:message key="news_search"/>">
+            <button type="submit"> <fmt:message key="news_button_find"/> </button>
 
         </form>
 
@@ -45,8 +61,8 @@
 
                 <select class="form-control" placeholder="Administrator Functions" name="idCategories" required>
 
-                    <option value="">Select a category</option>
-                    <option value="0">All news</option>
+                    <option value=""> <fmt:message key="news_text_select"/> </option>
+                    <option value="0"> <fmt:message key="news_text_all"/> </option>
 
                     <c:forEach var="categoriesList" items="${categories}">
 
@@ -56,13 +72,13 @@
 
                 </select>
 
-            <button id="functionChoice" type="submit" class="btn btn-primary">Choose</button>
+            <button id="functionChoice" type="submit" class="btn btn-primary"> <fmt:message key="news_button_choose"/> </button>
 
         </form>
 
-        <c:if test="${(sessionScope.user.role eq 'Admin')}">
+        <c:if test="${(sessionScope.user.role eq ('Admin'|| 'Editor' ) )}">
 
-                <button id="btnAddNews">Add news</button>
+                <button id="btnAddNews"> <fmt:message key="news_button_add"/> </button>
 
                 <div id="addNews" class="modal">
 
@@ -70,7 +86,7 @@
 
                         <span class="close">&times;</span>
 
-                            <h2>Add news</h2>
+                            <h2> <fmt:message key="news_button_add"/> </h2>
 
                             <form action="urlToServlet" method="post">
 
@@ -78,16 +94,16 @@
 
                                 <input type="hidden" name="idAdmin" value="${sessionScope.user.idUser}"/>
 
-                                <label for="title">Title:</label>
+                                <label for="title"> <fmt:message key="news_text_title"/> </label>
                                 <input type="text" id="titleMyModal" name="title" required><br><br>
 
-                                <label for="shortDescription"> Short Description:</label>
+                                <label for="shortDescription"> <fmt:message key="news_text_short"/> </label>
                                 <input type="text" id="shortDescriptionMyModal" name="short_description" required><br><br>
 
-                                <label for="content"> Content:</label>
+                                <label for="content"> <fmt:message key="news_text_content"/> </label>
                                 <textarea type="text" id="contentMyModal" name="content" required></textarea><br><br>
 
-                                <label for="categories"> Categories:</label>
+                                <label for="categories"> <fmt:message key="news_text_categories"/> </label>
                                 <select class="form-control" placeholder="Administrator Functions" name="idCategories" required>
 
                                     <c:forEach var="categoriesList" items="${categories}">
@@ -98,7 +114,7 @@
 
                                 </select><br><br>
 
-                                <button type="submit">Add</button>
+                                <button type="submit"> <fmt:message key="news_button_add_news"/> </button>
 
                             </form>
 
@@ -120,7 +136,7 @@
 
     	    <div id="functionReadNews">
 
-    	        <a class="news-link" href="urlToServlet?command=go_to_news_info_page&idNews=${news.idNews}" />Read</a>
+    	        <a class="news-link" href="urlToServlet?command=go_to_news_info_page&idNews=${news.idNews}" /> <fmt:message key="news_button_read_news"/> </a>
 
     	    </div>
 

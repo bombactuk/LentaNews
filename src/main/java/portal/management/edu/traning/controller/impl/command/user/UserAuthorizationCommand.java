@@ -73,7 +73,7 @@ public class UserAuthorizationCommand implements Command {
 
                 }
 
-                response.sendRedirect("urlToServlet?command=go_to_index_page");
+                response.sendRedirect("urlToServlet?command=go_to_news_page");
 
             } else {
 

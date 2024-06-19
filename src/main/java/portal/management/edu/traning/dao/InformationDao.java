@@ -10,6 +10,8 @@ public interface InformationDao {
 
     AboutInfo infoAbout() throws DaoException;
 
+    boolean editAbout(AboutInfo aboutInfo) throws DaoException;
+
     List<Update> allUpdatesWithUs() throws DaoException;
 
     boolean addUpdate(Update update) throws DaoException;

@@ -23,12 +23,12 @@ public class UserTokenResetCommand implements Command {
             if (logic.resetTokenUser()) {
 
                 response.sendRedirect("urlToServlet?command=go_to_admin_page&" +
-                        "functionError=Token reset completed successfully!");
+                        "functionError=105");
 
             } else {
 
                 response.sendRedirect("urlToServlet?command=go_to_admin_page&" +
-                        "functionError=Token reset not completed!");
+                        "functionError=106");
 
             }
 

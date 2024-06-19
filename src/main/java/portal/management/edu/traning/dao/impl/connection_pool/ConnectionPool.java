@@ -1,4 +1,4 @@
-package portal.management.edu.traning.dao.impl.connectionPool;
+package portal.management.edu.traning.dao.impl.connection_pool;
 
 import java.sql.*;
 import java.util.Enumeration;

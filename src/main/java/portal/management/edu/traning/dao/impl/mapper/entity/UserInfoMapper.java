@@ -1,5 +1,7 @@
 package portal.management.edu.traning.dao.impl.mapper.entity;
 
+import portal.management.edu.traning.dao.impl.ConstantsForPreparedStatementDaoBase;
+import portal.management.edu.traning.dao.impl.mapper.ConstantsForInquiriesResultSet;
 import portal.management.edu.traning.dao.impl.mapper.MapperResultSet;
 import portal.management.edu.traning.entity.UserInfo;
 
@@ -14,9 +16,9 @@ public class UserInfoMapper implements MapperResultSet<UserInfo> {
 
         return new UserInfo(
 
-                resultSet.getString("name"),
-                LocalDate.parse(resultSet.getString("birthday")),
-                resultSet.getString("country")
+                resultSet.getString(ConstantsForInquiriesResultSet.RESULT_SET_NAME),
+                LocalDate.parse(resultSet.getString(ConstantsForInquiriesResultSet.RESULT_SET_BIRTHDAY)),
+                resultSet.getString(ConstantsForInquiriesResultSet.RESULT_SET_COUNTRY)
 
         );
 

@@ -34,12 +34,12 @@ public class NewsAddCommand implements Command {
             if (logicNews.addNews(news)) {
 
                 response.sendRedirect("urlToServlet?command=go_to_news_page&" +
-                        "messageFunctions=Addition news was successful!");
+                        "messageFunctions=115");
 
             } else {
 
                 response.sendRedirect("urlToServlet?command=go_to_news_page&" +
-                        "messageFunctions=Adding news was not successful!");
+                        "messageFunctions=116");
 
             }
 

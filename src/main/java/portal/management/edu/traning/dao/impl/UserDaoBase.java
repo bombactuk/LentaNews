@@ -3,10 +3,11 @@ package portal.management.edu.traning.dao.impl;
 import portal.management.edu.traning.dao.DaoException;
 import portal.management.edu.traning.dao.UserDao;
 
-import portal.management.edu.traning.dao.impl.connectionPool.ConnectionPool;
+import portal.management.edu.traning.dao.impl.connection_pool.ConnectionPool;
 import portal.management.edu.traning.dao.impl.mapper.ResultSetBuilder;
 import portal.management.edu.traning.dao.impl.mapper.entity.UserInfoMapper;
 import portal.management.edu.traning.dao.impl.mapper.entity.UserMapper;
+import portal.management.edu.traning.dao.impl.mapper.entity.UserRoleMapper;
 import portal.management.edu.traning.entity.*;
 
 import java.sql.Connection;
@@ -37,7 +38,7 @@ public class UserDaoBase implements UserDao {
             prSt.setString(1, user.getLogin());
             prSt.setString(2, user.getPassword());
 
-            ResultSetBuilder<User> userBuilder = new ResultSetBuilder<>(new UserMapper());
+            ResultSetBuilder<User> userBuilder = new ResultSetBuilder<>(new UserRoleMapper());
 
             return userBuilder.buildObj(prSt);
 
@@ -68,7 +69,7 @@ public class UserDaoBase implements UserDao {
 
             prSt.setString(1, user.getToken());
 
-            ResultSetBuilder<User> userBuilder = new ResultSetBuilder<>(new UserMapper());
+            ResultSetBuilder<User> userBuilder = new ResultSetBuilder<>(new UserRoleMapper());
 
             return userBuilder.buildObj(prSt);
 
@@ -107,64 +108,73 @@ public class UserDaoBase implements UserDao {
 
                 dbConnection.setAutoCommit(false);
 
-                PreparedStatement prSt = dbConnection.prepareStatement(SELECT_CHECKING_WHETHER_THERE_IS_AN_ACCOUNT_OR_NOT);
-
-                prSt.setString(1, user.getLogin());
-
-                resSet = prSt.executeQuery();
-
-                if (!resSet.next()) {
-
-                    prSt = dbConnection.prepareStatement(INSERT_INFO_USER, PreparedStatement.RETURN_GENERATED_KEYS);
-
-                    prSt.setString(1, user.getName());
-                    prSt.setString(2, user.getBirthday().toString());
-                    prSt.setString(3, user.getCountry());
-
-                    prSt.executeUpdate();
-
-                    idKey = prSt.getGeneratedKeys();
-                    if (idKey.next()) {
-                        idInfoUser = idKey.getInt(1);
-                    }
-
-                    prSt = dbConnection.prepareCall(INSERT_ACCOUNT_USER);
+                try (PreparedStatement prSt = dbConnection.prepareStatement(SELECT_CHECKING_WHETHER_THERE_IS_AN_ACCOUNT_OR_NOT)) {
 
                     prSt.setString(1, user.getLogin());
-                    prSt.setString(2, user.getPassword());
-                    prSt.setInt(3, idInfoUser);
 
-                    prSt.executeUpdate();
+                    resSet = prSt.executeQuery();
 
-                    idKey = prSt.getGeneratedKeys();
-                    if (idKey.next()) {
-                        idInfoUser = idKey.getInt(1);
+                    if (!resSet.next()) {
+
+                        PreparedStatement prSt1 = dbConnection.prepareStatement(INSERT_INFO_USER, PreparedStatement.RETURN_GENERATED_KEYS);
+
+                        prSt1.setString(1, user.getName());
+                        prSt1.setString(2, user.getBirthday().toString());
+                        prSt1.setString(3, user.getCountry());
+
+                        prSt1.executeUpdate();
+
+                        idKey = prSt1.getGeneratedKeys();
+                        if (idKey.next()) {
+                            idInfoUser = idKey.getInt(1);
+                        }
+
+                        PreparedStatement prSt2 = dbConnection.prepareCall(INSERT_ACCOUNT_USER);
+
+                        prSt2.setString(1, user.getLogin());
+                        prSt2.setString(2, user.getPassword());
+                        prSt2.setInt(3, idInfoUser);
+
+                        prSt2.executeUpdate();
+
+                        idKey = prSt2.getGeneratedKeys();
+                        if (idKey.next()) {
+                            idInfoUser = idKey.getInt(1);
+                        }
+
+                        PreparedStatement prSt3 = dbConnection.prepareCall(INSERT_ROLE_USER);
+
+                        prSt3.setInt(1, 1);
+                        prSt3.setInt(2, idInfoUser);
+
+                        prSt3.executeUpdate();
+
+                        PreparedStatement prSt4 = dbConnection.prepareCall(INSERT_TOKEN_USER);
+
+                        prSt4.setInt(1, idInfoUser);
+
+                        prSt4.executeUpdate();
+
+                        dbConnection.commit();
+
+                        return true;
+
+                    } else {
+
+                        return false;
+
                     }
 
-                    prSt = dbConnection.prepareCall(INSERT_ROLE_USER);
+                } catch (SQLException e) {
 
-                    prSt.setInt(1, 1);
-                    prSt.setInt(2, idInfoUser);
-
-                    prSt.executeUpdate();
-
-                    prSt = dbConnection.prepareCall(INSERT_TOKEN_USER);
-
-                    prSt.setInt(1, idInfoUser);
-
-                    prSt.executeUpdate();
-
-                    dbConnection.commit();
-
-                    return true;
-
-                } else {
-
-                    return false;
+                    dbConnection.rollback();
 
                 }
 
+                return false;
+
             } catch (InterruptedException | SQLException e) {
+
 
                 throw new DaoException(e);
 
@@ -229,14 +239,46 @@ public class UserDaoBase implements UserDao {
 
         try (Connection dbConnection = dataBase.takeConection()) {
 
-
             PreparedStatement prSt = dbConnection.prepareCall(UPDATE_RESET_TOKEN_USER);
 
-            prSt.setString(1, "");
+            prSt.setString(1, ConstantsForPreparedStatementDaoBase.DB_FIELD_EMPTINESS);
 
             prSt.executeUpdate();
 
             return prSt.executeUpdate() > 0;
+
+        } catch (InterruptedException | SQLException e) {
+
+            throw new DaoException(e);
+
+        }
+
+    }
+
+    private static final String SELECT_INFO_USER_ID = "SELECT * FROM users WHERE id_user = ?";
+    private static final String UPDATE_INFO_USER = "UPDATE info_users " +
+            "SET name = ?, birthday = ?, country = ? " +
+            "WHERE id_info_user = ?";
+
+    @Override
+    public boolean editInfoUser(UserInfo userInfo, User user) throws DaoException {
+
+        try (Connection dbConnection = dataBase.takeConection()) {
+
+            PreparedStatement prSt = dbConnection.prepareCall(SELECT_INFO_USER_ID);
+
+            prSt.setInt(1, user.getIdUser());
+
+            ResultSetBuilder<User> userBuilder = new ResultSetBuilder<>(new UserMapper());
+
+            PreparedStatement prSt1 = dbConnection.prepareCall(UPDATE_INFO_USER);
+
+            prSt1.setString(1, userInfo.getName());
+            prSt1.setString(2, userInfo.getBirthday().toString());
+            prSt1.setString(3, userInfo.getCountry());
+            prSt1.setInt(4, userBuilder.buildObj(prSt).getIdInfoUser());
+
+            return prSt1.executeUpdate() > 0;
 
         } catch (InterruptedException | SQLException e) {
 

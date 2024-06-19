@@ -21,13 +21,13 @@ public class News implements Serializable {
     public News() {
     }
 
-    public News(int idNews){
+    public News(int idNews) {
 
         this.idNews = idNews;
 
     }
 
-    public News(int idNews, String title, String shortDescription, LocalDate postDate){
+    public News(int idNews, String title, String shortDescription, LocalDate postDate) {
         this.idNews = idNews;
         this.title = title;
         this.shortDescription = shortDescription;

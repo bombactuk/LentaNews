@@ -42,7 +42,7 @@ public class ValidationResultValues {
             Matcher loginMatcher = loginPattern.matcher(login);
 
             if (!loginMatcher.matches()) {
-                errors.append("Login not correct.");
+                errors.append("122");
             }
 
             return this;
@@ -57,7 +57,7 @@ public class ValidationResultValues {
 
             if (!passwordMatcher.matches()) {
 
-                errors.append("Password not correct.");
+                errors.append("121");
 
             }
 
@@ -72,7 +72,7 @@ public class ValidationResultValues {
             Matcher nameMatcher = namePattern.matcher(name);
 
             if (!nameMatcher.matches()) {
-                errors.append("The name must be no more than 20 characters.");
+                errors.append("120");
             }
 
             return this;
@@ -83,7 +83,7 @@ public class ValidationResultValues {
 
             if (login == null || password == null) {
 
-                errors.append("Fill in all the fields.");
+                errors.append("108");
 
             }
 
@@ -95,7 +95,7 @@ public class ValidationResultValues {
 
             if (login == null || password == null || name == null || country == null) {
 
-                errors.append("Fill in all the fields");
+                errors.append("119");
 
             }
 

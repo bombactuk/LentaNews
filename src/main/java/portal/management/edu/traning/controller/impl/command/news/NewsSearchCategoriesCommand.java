@@ -27,7 +27,7 @@ public class NewsSearchCategoriesCommand implements Command {
 
             List<News> news;
 
-            if (idCategories==0) {
+            if (idCategories == 0) {
 
                 news = logicNews.displayAllNews();
 

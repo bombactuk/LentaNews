@@ -31,14 +31,14 @@ public class NewsEditCommand implements Command {
             if (logicNews.editNews(news)) {
 
                 response.sendRedirect("urlToServlet?command=go_to_news_info_page&" +
-                        "editAnswer=Editing the news was successful!&" +
+                        "editAnswer=109&" +
                         "idNews=" + request.getParameter("idNews"));
 
             } else {
 
                 response.sendRedirect("urlToServlet?command=go_to_news_info_page&" +
-                        "editAnswer=The news was not edited!&" +
-                        "idNews="+ request.getParameter("idNews"));
+                        "editAnswer=110&" +
+                        "idNews=" + request.getParameter("idNews"));
 
             }
 

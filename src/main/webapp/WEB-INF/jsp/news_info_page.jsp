@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page isELIgnored="false" %>
+
+<fmt:setLocale value="${sessionScope.locale}" />
+<fmt:setBundle basename="messages" />
+
 <!DOCTYPE html>
 
 <html>
@@ -23,17 +29,51 @@
 
         <c:if test="${not (param.editAnswer eq null) }">
 
-            <c:out value="${param.editAnswer}" />
+            <c:if test="${ (param.editAnswer eq '109' ) }">
+
+                <p> <fmt:message key="news_info_error_109"/> </p>
+
+            </c:if>
+
+            <c:if test="${ (param.editAnswer eq '110' ) }">
+
+                <p> <fmt:message key="news_info_error_110"/> </p>
+
+            </c:if>
+
+            <c:if test="${ (param.editAnswer eq '111') }">
+
+                <p> <fmt:message key="news_info_error_111"/> </p>
+
+            </c:if>
+
+            <c:if test="${ (param.editAnswer eq '112') }">
+
+                <p> <fmt:message key="news_info_error_112"/> </p>
+
+            </c:if>news_info_error_113
+
+            <c:if test="${ (param.editAnswer eq '113') }">
+
+                <p> <fmt:message key="news_info_error_113"/> </p>
+
+            </c:if>
+
+            <c:if test="${ (param.editAnswer eq '114') }">
+
+                <p> <fmt:message key="news_info_error_114"/> </p>
+
+            </c:if>
 
         </c:if>
 
     </div>
 
-	<c:if test="${(sessionScope.user.role eq 'Admin')}">
+	<c:if test="${(sessionScope.user.role eq ('Admin'|| 'Editor') )}">
 
         <div id="functionEditNews">
 
-            <button id="btnEditNews">Editing news</button><br><br>
+            <button id="btnEditNews"> <fmt:message key="news_info_text_edit"/> </button><br><br>
 
         </div>
 
@@ -43,7 +83,7 @@
 
                 <span class="close">&times;</span>
 
-                    <h2>Edit news</h2>
+                    <h2> <fmt:message key="news_info_text_news"/> </h2>
 
                     <form action="urlToServlet" method="post">
 
@@ -51,16 +91,16 @@
 
                         <input type="hidden" name="idNews" value="${infoNews.idNews}"/>
 
-                        <label for="title">Title:</label>
+                        <label for="title"> <fmt:message key="news_info_text_title"/> </label>
                         <input type="text" id="titleEditNews" name="title" value="${infoNews.title}" required><br><br>
 
-                        <label for="shortDescription"> Short Description:</label>
+                        <label for="shortDescription"> <fmt:message key="news_info_text_short"/> </label>
                         <input type="text" id="shortDescriptionEditNews" name="short_description" value="${infoNews.shortDescription}" required><br><br>
 
-                        <label for="content"> Content:</label>
+                        <label for="content"> <fmt:message key="news_info_text_content"/> </label>
                         <textarea type="text" id="contentEditNews" name="content" required>${infoNews.content}</textarea><br><br>
 
-                        <button type="submit">Save</button>
+                        <button type="submit"> <fmt:message key="news_info_button_save"/> </button>
 
                     </form>
 
@@ -70,7 +110,7 @@
 
         <div id="functionDeleteNews">
 
-            <a href="urlToServlet?command=news_delete&idNews=${infoNews.idNews}">Delete news</a>
+            <a href="urlToServlet?command=news_delete&idNews=${infoNews.idNews}"> <fmt:message key="news_info_button_delete"/> </a>
 
         </div>
 
@@ -86,17 +126,17 @@
 
         <p> ${infoNews.content} </p>
 
-        <p> Publication date: ${infoNews.postDate} <p>
+        <p> <fmt:message key="news_info_text_publication"/> ${infoNews.postDate} <p>
 
     </div>
 
     <div id="commentsContainer">
 
-        <h2>Comments</h2>
+        <h2> <fmt:message key="news_info_text_comments"/> </h2>
 
             <div id="functionAddNewsComment">
 
-                <button id="btnAddComment">Add comment</button><br><br>
+                <button id="btnAddComment"> <fmt:message key="news_info_button_add_comments"/> </button><br><br>
 
             </div>
 
@@ -106,7 +146,7 @@
 
                     <span class="close1">&times;</span>
 
-                    <h2>Comment adding</h2>
+                    <h2> <fmt:message key="news_info_text_comments_adding"/> </h2>
 
                     <form action="urlToServlet" method="post">
 
@@ -116,10 +156,10 @@
 
                         <input type="hidden" name="idUser" value="${sessionScope.user.idUser}"/>
 
-                        <label for="content"> Content:</label>
+                        <label for="content"> <fmt:message key="news_info_text_comments_content"/> </label>
                         <textarea type="text" id="contentComment" name="content" required></textarea><br><br>
 
-                        <button type="submit">Add</button>
+                        <button type="submit"> <fmt:message key="news_info_button_add"/> </button>
 
                     </form>
 
@@ -134,13 +174,13 @@
                 <div class="comment">
 
                     <p id="commentContent">${comment.content}</p>
-                    <p id="commentAuthor">by ${comment.nameUser} on ${comment.datePost}</p>
+                    <p id="commentAuthor"> <fmt:message key="news_info_text_comments_by"/> ${comment.nameUser} <fmt:message key="news_info_text_comments_on"/> ${comment.datePost}</p>
 
-                    <c:if test="${(sessionScope.user.role eq 'Admin')||(sessionScope.user.idUser eq comment.idUser)}">
+                    <c:if test="${(sessionScope.user.role eq ('Admin' || 'Editor'))||(sessionScope.user.idUser eq comment.idUser)}">
 
                         <div id="functionDeleteComment">
 
-                            <a href="urlToServlet?command=comment_delete&idComment=${comment.idComment}&idNews=${infoNews.idNews}">Delete comment</a>
+                            <a href="urlToServlet?command=comment_delete&idComment=${comment.idComment}&idNews=${infoNews.idNews}"> <fmt:message key="news_info_button_delete_comment"/> </a>
 
                         </div>
 

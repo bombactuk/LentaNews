@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page isELIgnored="false" %>
+
+<fmt:setLocale value="${sessionScope.locale}" />
+<fmt:setBundle basename="messages" />
+
 <!DOCTYPE html>
 
 <html>
@@ -21,84 +27,112 @@
 
     <div id="functionAdminProfile">
 
-        <a href="urlToServlet?command=user_logout">Log out of your account</a>
-        <a href="urlToServlet?command=user_token_reset">Reset user token</a>
+        <a href="urlToServlet?command=user_logout"> <fmt:message key="admin.button_exit"/> </a>
+        <a href="urlToServlet?command=user_token_reset"> <fmt:message key="admin.button_reset"/> </a><br><br>
+
+        <div id="functionAddContact">
+
+            <button id="btnAddContact"> <fmt:message key="admin.button_add"/> </button><br><br>
+
+        </div>
 
     </div>
 
     <hr/>
 
-    <form action="urlToServlet" method="post">
-
-        <input type="hidden" name="command" value="admin_function_sampling"/>
-
-        <select class="form-control" id="functionAdmin" placeholder="Administrator Functions" name="function" required>
-
-            <option value="">Select function</option>
-            <option value="addUpdate">Adding updates</option>
-            <option value="addContact"> Adding a connection with us</option>
-
-        </select>
-
-        <button id="functionChoice" type="submit" class="btn btn-primary">Choose</button>
-
-    </form>
-
     <div class="error-messageFunction" id="error-messageFunction">
 
         <c:if test="${not (param.functionError eq null) }">
 
-            <p> <c:out value="${param.functionError}" /> </p>
+            <c:if test="${ (param.functionError eq '103') }">
+
+                <p> <fmt:message key="admin_error_103"/> </p>
+
+            </c:if>
+
+            <c:if test="${ (param.functionError eq '104') }">
+
+                <p> <fmt:message key="admin_error_104"/> </p>
+
+            </c:if>
+
+            <c:if test="${ (param.functionError eq '105') }">
+
+                <p> <fmt:message key="admin_error_105"/> </p>
+
+            </c:if>
+
+            <c:if test="${ (param.functionError eq '106') }">
+
+                <p> <fmt:message key="admin_error_106"/> </p>
+
+            </c:if>
 
         </c:if>
 
     </div>
 
-    <c:if test="${(param.functionCommand eq 'addUpdate')}">
+    <div id="addContact" class="modal">
 
-        <div id="formFunction">
+        <div id="addContactContent" class="modal-content">
 
-            <form action="urlToServlet" method="post">
+            <span class="close1">&times;</span>
 
-                <input type="hidden" name="command" value="update_add"/>
-
-                <input type="text" placeholder="Heading" id="titleUpdate" name="title" required>
-
-                <input type="text" placeholder="Text" id="content" name="content" required>
-
-                <input type="hidden" name="idAdmin" value="${sessionScope.user.idUser}"/>
-
-                <button id="btnAdminFunction" type="submit" class="btn btn-primary">Add</button>
-
-            </form>
-
-        </div>
-
-    </c:if>
-
-    <c:if test="${(param.functionCommand eq 'addContact')}">
-
-        <div id="formFunction">
+            <h2> <fmt:message key="admin.button_add"/> </h2>
 
             <form action="urlToServlet" method="post">
 
                 <input type="hidden" name="command" value="contact_add"/>
 
-                <input type="text" placeholder="Image" id="imgContact" name="img" required>
-
-                <input type="text" placeholder="Link" id="linkContact" name="link" required>
-
                 <input type="hidden" name="idAdmin" value="${sessionScope.user.idUser}"/>
 
-                <button id="btnAdminFunction" type="submit" class="btn btn-primary">Add</button>
+                <label for="title"> <fmt:message key="admin.text.img"/> </label>
+                <input type="text" placeholder="Image" id="imgContact" name="img" required><br><br>
+
+                <label for="content"> <fmt:message key="admin.text.link"/> </label>
+                <input type="text" placeholder="Link" id="linkContact" name="link" required><br><br>
+
+                <button type="add"> <fmt:message key="admin.button.add.contact"/> </button>
 
             </form>
 
         </div>
 
-    </c:if>
+    </div>
 
     <jsp:include page="/WEB-INF/blocks/footer.jsp" />
+
+    <script>
+
+        var modal1 = document.getElementById("addContact");
+
+        var btn1 = document.getElementById("btnAddContact");
+
+        var span1 = document.getElementsByClassName("close1")[0];
+
+        btn1.onclick = function() {
+
+            modal1.style.display = "block";
+
+        }
+
+        span1.onclick = function() {
+
+            modal1.style.display = "none";
+
+        }
+
+        window.onclick = function(event) {
+
+            if (event.target == modal1) {
+
+                modal1.style.display = "none";
+
+            }
+
+        }
+
+    </script>
 
 </body>
 

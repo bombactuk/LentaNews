@@ -2,7 +2,7 @@ package portal.management.edu.traning.dao.impl;
 
 import portal.management.edu.traning.dao.DaoException;
 import portal.management.edu.traning.dao.NewsDao;
-import portal.management.edu.traning.dao.impl.connectionPool.ConnectionPool;
+import portal.management.edu.traning.dao.impl.connection_pool.ConnectionPool;
 import portal.management.edu.traning.dao.impl.mapper.ResultSetBuilder;
 import portal.management.edu.traning.dao.impl.mapper.entity.NewsCategoriesMapper;
 import portal.management.edu.traning.dao.impl.mapper.entity.NewsMapper;
@@ -67,7 +67,7 @@ public class NewsDaoBase implements NewsDao {
 
         try (Connection dbConnection = dataBase.takeConection()) {
 
-            PreparedStatement prSt = dbConnection.prepareStatement(SELECT_INFO_NEWS );
+            PreparedStatement prSt = dbConnection.prepareStatement(SELECT_INFO_NEWS);
 
             prSt.setInt(1, news.getIdNews());
 
@@ -140,7 +140,7 @@ public class NewsDaoBase implements NewsDao {
 
         try (Connection dbConnection = dataBase.takeConection()) {
 
-            if(news!=null){
+            if (news != null) {
 
                 PreparedStatement prSt = dbConnection.prepareCall(INSERT_NEWS_INTO_DATA_BASE);
 
@@ -150,11 +150,11 @@ public class NewsDaoBase implements NewsDao {
                 prSt.setString(4, news.getPostDate().toString());
                 prSt.setInt(5, news.getIdAdmin());
                 prSt.setInt(6, news.getIdCategories());
-                prSt.setString(7, "active");
+                prSt.setString(7, ConstantsForPreparedStatementDaoBase.DB_STATUS_ACTIVE);
 
                 return prSt.executeUpdate() > 0;
 
-            }else {
+            } else {
 
                 return false;
 
@@ -176,7 +176,7 @@ public class NewsDaoBase implements NewsDao {
 
         try (Connection dbConnection = dataBase.takeConection()) {
 
-            if(news!=null){
+            if (news != null) {
 
                 PreparedStatement prSt = dbConnection.prepareCall(UPDATE_EDIT_NEWS_INTO_DATA_BASE);
 
@@ -187,7 +187,7 @@ public class NewsDaoBase implements NewsDao {
 
                 return prSt.executeUpdate() > 0;
 
-            }else {
+            } else {
 
                 return false;
 
@@ -208,7 +208,7 @@ public class NewsDaoBase implements NewsDao {
 
         try (Connection dbConnection = dataBase.takeConection()) {
 
-            if(news!=null){
+            if (news != null) {
 
                 PreparedStatement prSt = dbConnection.prepareCall(UPDATE_DELETE_NEWS_INTO_DATA_BASE);
 
@@ -216,7 +216,7 @@ public class NewsDaoBase implements NewsDao {
 
                 return prSt.executeUpdate() > 0;
 
-            }else {
+            } else {
 
                 return false;
 

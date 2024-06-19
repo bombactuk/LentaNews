@@ -113,6 +113,18 @@ footer #right {
         position: absolute;
 }
 
+#selectLanguage a {
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#selectLanguage a:hover {
+    background-color: #F77408;
+}
+
 #container {
     width: 600px;
     margin: 150px auto;
@@ -225,6 +237,21 @@ footer #right {
 	padding: 2%;
 }
 
+#functionEditAboutUs button{
+    padding: 10px 20px;
+    background-color: #505050;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#functionEditAboutUs button:hover {
+    background-color: #F77408;
+}
+
 /* Стили для сраницы user_profile*/
 
 #userInfo {
@@ -236,14 +263,33 @@ footer #right {
 }
 
 #userInfo a {
-    color: #505050;
-    text-decoration: none;
-    padding: 5px 10px;
+    padding: 8px 20px;
+    background-color: #505050;
+    color: #fff;
+    border: none;
     border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
     transition: background-color 0.3s ease;
+    text-decoration: none;
 }
 
 #userInfo a:hover {
+    background-color: #F77408;
+}
+
+#functionProfileEdit button{
+    padding: 10px 20px;
+    background-color: #505050;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#functionProfileEdit button:hover {
     background-color: #F77408;
 }
 
@@ -303,6 +349,37 @@ footer #right {
 #functionChoice:hover {
     background-color: #F77408;
 }
+
+#functionAddUpdate button {
+    padding: 10px 20px;
+    background-color: #505050;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#functionAddUpdate button:hover {
+    background-color: #F77408;
+}
+
+#functionAddContact button {
+    padding: 5px 10px;
+    background-color: #505050;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#functionAddContact button:hover {
+    background-color: #F77408;
+}
+
 
 /* Стили для статей */
 
@@ -467,7 +544,7 @@ footer #right {
 
  /* Стили для модального окна */
 
-#editFormNews, #newsComment, #addNews {
+#editFormNews, #newsComment, #addNews ,#editProfile, #addUpdate, #addContact, #editAboutUs {
     display: none;
     position: fixed;
     z-index: 1;
@@ -480,7 +557,7 @@ footer #right {
     background-color: rgba(0,0,0,0.4);
 }
 
-#editNewsContent, #newsCommentContent, #addNewsContent {
+#editNewsContent, #newsCommentContent, #addNewsContent, #editProfileContent, #addUpdateContent, #addContactContent, #editAboutUsContent {
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
@@ -488,14 +565,14 @@ footer #right {
     width: 80%;
 }
 
-#editFormNews, #newsComment, #addNews .close {
+#editFormNews, #newsComment, #addNews, #editProfile, #addUpdate, #addContact, #editAboutUs  .close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
 
-#editFormNews, #newsComment, #addNews .close:hover,.close:focus {
+#editFormNews, #newsComment, #addNews, #editProfile, #addUpdate, #addContact, #editAboutUs .close:hover,.close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;

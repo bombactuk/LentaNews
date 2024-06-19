@@ -12,10 +12,10 @@ public class NewsCategories implements Serializable {
     private int idCategories;
     private String type;
 
-    public NewsCategories(){
+    public NewsCategories() {
     }
 
-    public NewsCategories(int idCategories, String type){
+    public NewsCategories(int idCategories, String type) {
         this.idCategories = idCategories;
         this.type = type;
     }
