@@ -25,13 +25,6 @@
 
     </div>
 
-    <div id="selectLanguage">
-
-        <a href="urlToServlet?command=locale_set&language=en"> <fmt:message key="header.option.english"/> </a>
-        <a href="urlToServlet?command=locale_set&language=ru"> <fmt:message key="header.option.russian"/> </a>
-
-    </div>
-
     <div id="right">
 
         <p id="right">Copyright &copy; Your Website</p>

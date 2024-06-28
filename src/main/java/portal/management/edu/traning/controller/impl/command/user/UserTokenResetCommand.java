@@ -3,7 +3,10 @@ package portal.management.edu.traning.controller.impl.command.user;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import portal.management.edu.traning.controller.Command;
+import portal.management.edu.traning.controller.ConstantCommand;
+import portal.management.edu.traning.entity.User;
 import portal.management.edu.traning.logic.LogicException;
 import portal.management.edu.traning.logic.LogicProvider;
 import portal.management.edu.traning.logic.UserLogic;
@@ -20,15 +23,27 @@ public class UserTokenResetCommand implements Command {
 
         try {
 
+            HttpSession session = request.getSession(false);
+
+            User user = (User) session.getAttribute(ConstantCommand.CONSTANT_USER);
+
+            if (user == null || !user.getRole().equals(ConstantCommand.CONSTANT_USER_ROLE_ADMIN)) {
+
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_UPDATES_PAGE);
+
+                return;
+
+            }
+
             if (logic.resetTokenUser()) {
 
-                response.sendRedirect("urlToServlet?command=go_to_admin_page&" +
-                        "functionError=105");
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_ADMIN_PAGE +
+                        "&functionError=105");
 
             } else {
 
-                response.sendRedirect("urlToServlet?command=go_to_admin_page&" +
-                        "functionError=106");
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_ADMIN_PAGE +
+                        "&functionError=106");
 
             }
 

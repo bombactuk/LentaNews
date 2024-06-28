@@ -51,13 +51,13 @@
 
                 <c:if test="${ (param.functionError eq '123') }">
 
-                    <p> <fmt:message key="update_error_123"/> </p>
+                    <p> <fmt:message key="update_error_function"/> <fmt:message key="update_error_123"/> </p>
 
                 </c:if>
 
                 <c:if test="${ (param.functionError eq '124') }">
 
-                    <p> <fmt:message key="update_error_124"/> </p>
+                    <p> <fmt:message key="update_error_function"/> <fmt:message key="update_error_124"/> </p>
 
                 </c:if>
 
@@ -76,8 +76,6 @@
                 <form action="urlToServlet" method="post">
 
                     <input type="hidden" name="command" value="update_add"/>
-
-                    <input type="hidden" name="idAdmin" value="${sessionScope.user.idUser}"/>
 
                     <label for="title"> <fmt:message key="update_text_title"/> </label>
                     <input type="text" placeholder="heading" id="titleUpdate" name="title" required><br><br>

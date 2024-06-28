@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import portal.management.edu.traning.controller.Command;
+import portal.management.edu.traning.controller.ConstantCommand;
 
 import java.io.IOException;
 
@@ -20,9 +21,9 @@ public class UserLogoutCommand implements Command {
 
             for (Cookie c : cookies) {
 
-                if (c.getName().equals("remember-me")) {
+                if (c.getName().equals(ConstantCommand.CONSTANT_REMEMBER)) {
 
-                    Cookie cookie = new Cookie("remember-me", c.getValue());
+                    Cookie cookie = new Cookie(ConstantCommand.CONSTANT_REMEMBER, c.getValue());
                     cookie.setMaxAge(0);
                     response.addCookie(cookie);
 
@@ -38,7 +39,7 @@ public class UserLogoutCommand implements Command {
             session.invalidate();
         }
 
-        response.sendRedirect("urlToServlet?command=go_to_updates_page");
+        response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_UPDATES_PAGE);
 
     }
 

@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import portal.management.edu.traning.controller.Command;
+import portal.management.edu.traning.controller.ConstantCommand;
 import portal.management.edu.traning.entity.News;
 import portal.management.edu.traning.logic.InformationLogic;
 import portal.management.edu.traning.logic.LogicException;
@@ -27,19 +28,19 @@ public class GoToNewsInfoPage implements Command {
 
             HttpSession session = request.getSession(false);
 
-            if (session.getAttribute("user") == null) {
+            if (session.getAttribute(ConstantCommand.CONSTANT_USER) == null) {
 
-                response.sendRedirect("urlToServlet?command=go_to_updates_page");
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_UPDATES_PAGE);
 
                 return;
 
             }
 
-            request.setAttribute("infoNews", logicNews.infoNews(new News(Integer.parseInt(request.getParameter("idNews")))));
+            request.setAttribute(ConstantCommand.CONSTANT_INFO_NEWS, logicNews.infoNews(new News(Integer.parseInt(request.getParameter("idNews")))));
 
-            request.setAttribute("listComment",logicInfo.allCommentWithUs(new News(Integer.parseInt(request.getParameter("idNews")))));
+            request.setAttribute(ConstantCommand.CONSTANT_LIST_COMMENT, logicInfo.allCommentWithUs(new News(Integer.parseInt(request.getParameter("idNews")))));
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/news_info_page.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher(ConstantCommand.CONSTANT_WEB_INF_NEWS_INFO_PAGE);
             dispatcher.forward(request, response);
 
         } catch (LogicException e) {

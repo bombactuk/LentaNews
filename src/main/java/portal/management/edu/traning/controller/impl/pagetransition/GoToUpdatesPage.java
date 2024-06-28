@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import portal.management.edu.traning.controller.Command;
+import portal.management.edu.traning.controller.ConstantCommand;
 import portal.management.edu.traning.logic.InformationLogic;
 import portal.management.edu.traning.logic.LogicException;
 import portal.management.edu.traning.logic.LogicProvider;
@@ -21,9 +22,9 @@ public class GoToUpdatesPage implements Command {
 
         try {
 
-            request.setAttribute("updates", logicInfo.allUpdatesWithUs());
+            request.setAttribute(ConstantCommand.CONSTANT_UPDATES, logicInfo.allUpdatesWithUs());
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/updates_page.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher(ConstantCommand.CONSTANT_WEB_INF_UPDATES_PAGE);
             dispatcher.forward(request, response);
 
         } catch (LogicException e) {

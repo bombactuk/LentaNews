@@ -31,13 +31,25 @@
 
             <c:if test="${ (param.messageFunctions eq '115') }">
 
-                <p> <fmt:message key="news_error_115"/> </p>
+                <p> <fmt:message key="update_error_function"/> <fmt:message key="news_error_115"/> </p>
 
             </c:if>
 
             <c:if test="${ (param.messageFunctions eq '116') }">
 
-                <p> <fmt:message key="news_error_116"/> </p>
+                <p> <fmt:message key="update_error_function"/> <fmt:message key="news_error_116"/> </p>
+
+            </c:if>
+
+            <c:if test="${ (param.messageFunctions eq '117') }">
+
+                <p> <fmt:message key="update_error_function"/> <fmt:message key="news_error_117"/> </p>
+
+            </c:if>
+
+            <c:if test="${ (param.messageFunctions eq '118') }">
+
+                <p> <fmt:message key="update_error_function"/> <fmt:message key="news_error_118"/> </p>
 
             </c:if>
 
@@ -76,7 +88,7 @@
 
         </form>
 
-        <c:if test="${(sessionScope.user.role eq 'Admin' )}">
+        <c:if test="${(sessionScope.user.role eq 'Admin' or sessionScope.user.role eq 'Editor')}">
 
                 <button id="btnAddNews"> <fmt:message key="news_button_add"/> </button>
 
@@ -91,8 +103,6 @@
                             <form action="urlToServlet" method="post">
 
                                 <input type="hidden" name="command" value="news_add"/>
-
-                                <input type="hidden" name="idAdmin" value="${sessionScope.user.idUser}"/>
 
                                 <label for="title"> <fmt:message key="news_text_title"/> </label>
                                 <input type="text" id="titleMyModal" name="title" required><br><br>

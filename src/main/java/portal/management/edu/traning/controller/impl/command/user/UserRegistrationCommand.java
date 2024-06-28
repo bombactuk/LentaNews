@@ -4,6 +4,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import portal.management.edu.traning.controller.Command;
+import portal.management.edu.traning.controller.ConstantCommand;
 import portal.management.edu.traning.entity.UserRegistrationInfo;
 import portal.management.edu.traning.logic.LogicException;
 import portal.management.edu.traning.logic.LogicProvider;
@@ -26,12 +27,12 @@ public class UserRegistrationCommand implements Command {
 
             UserRegistrationInfo user = new UserRegistrationInfo();
 
-            user.setLogin(request.getParameter("username"));
-            user.setPassword(request.getParameter("password"));
-            user.setName(request.getParameter("name"));
-            user.setBirthday(LocalDate.parse(request.getParameter("dob")));
-            user.setCountry(request.getParameter("country"));
-            user.setRole("user");
+            user.setLogin(request.getParameter(ConstantCommand.CONSTANT_COLUMN_USERNAME));
+            user.setPassword(request.getParameter(ConstantCommand.CONSTANT_COLUMN_PASSWORD));
+            user.setName(request.getParameter(ConstantCommand.CONSTANT_COLUMN_NAME));
+            user.setBirthday(LocalDate.parse(request.getParameter(ConstantCommand.CONSTANT_COLUMN_DOB)));
+            user.setCountry(request.getParameter(ConstantCommand.CONSTANT_COLUMN_COUNTRY));
+            user.setRole(ConstantCommand.CONSTANT_USER);
 
             ValidationResultValues validator = validBuild.validLoginPasswordNameCountry(user.getLogin(), user.getPassword(),
                             user.getName(), user.getCountry()).validLogin(user.getLogin()).
@@ -39,8 +40,8 @@ public class UserRegistrationCommand implements Command {
 
             if (validator.isResult()) {
 
-                response.sendRedirect("urlToServlet?command=go_to_registration_page&" +
-                        "regError=" + validator.getException());
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_REGISTRATION_PAGE +
+                        "&regError=" + validator.getException());
 
                 return;
 
@@ -48,13 +49,13 @@ public class UserRegistrationCommand implements Command {
 
             if (logic.registrationUser(user)) {
 
-                response.sendRedirect("urlToServlet?command=go_to_authorization_page&" +
-                        "authMessage=Registration completed successfully!");
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_AUTHORIZATION_PAGE +
+                        "&authMessage=110");
 
             } else {
 
-                response.sendRedirect("urlToServlet?command=go_to_registration_page&" +
-                        "regError=The login already exists!");
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_REGISTRATION_PAGE +
+                        "&regError=123");
 
             }
 

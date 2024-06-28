@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import portal.management.edu.traning.controller.Command;
+import portal.management.edu.traning.controller.ConstantCommand;
 import portal.management.edu.traning.entity.News;
 import portal.management.edu.traning.logic.LogicException;
 import portal.management.edu.traning.logic.LogicProvider;
@@ -23,7 +24,7 @@ public class NewsSearchCategoriesCommand implements Command {
 
         try {
 
-            int idCategories = Integer.parseInt(request.getParameter("idCategories"));
+            int idCategories = Integer.parseInt(request.getParameter(ConstantCommand.CONSTANT_COLUMN_CATEGORIES_ID));
 
             List<News> news;
 
@@ -37,11 +38,11 @@ public class NewsSearchCategoriesCommand implements Command {
 
             }
 
-            request.setAttribute("news", news);
+            request.setAttribute(ConstantCommand.CONSTANT_NEWS, news);
 
-            request.setAttribute("categories", logicNews.displayAllNewsCategories());
+            request.setAttribute(ConstantCommand.CONSTANT_CATEGORIES, logicNews.displayAllNewsCategories());
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/news_page.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher(ConstantCommand.CONSTANT_WEB_INF_NEWS_PAGE);
             dispatcher.forward(request, response);
 
         } catch (LogicException e) {

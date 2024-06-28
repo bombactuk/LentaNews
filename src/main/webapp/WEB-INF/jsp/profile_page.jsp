@@ -31,13 +31,13 @@
 
             <c:if test="${ (param.editAnswer eq '117') }">
 
-                <p> <fmt:message key="profile_error_117"/> </p>
+                <p> <fmt:message key="update_error_function"/> <fmt:message key="profile_error_117"/> </p>
 
             </c:if>
 
             <c:if test="${ (param.editAnswer eq '118') }">
 
-                <p> <fmt:message key="profile_error_118"/> </p>
+                <p> <fmt:message key="update_error_function"/> <fmt:message key="profile_error_118"/> </p>
 
             </c:if>
 
@@ -72,8 +72,6 @@
                 <form action="urlToServlet" method="post">
 
                     <input type="hidden" name="command" value="user_info_edit"/>
-
-                    <input type="hidden" name="idUser" value="${sessionScope.user.idUser}"/>
 
                     <label for="name"> <fmt:message key="profile_text_name"/> </label>
                     <input type="text" id="nameEditProfile" name="name" value="${infoUser.name}" required><br><br>

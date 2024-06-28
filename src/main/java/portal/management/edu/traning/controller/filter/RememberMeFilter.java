@@ -3,6 +3,7 @@ package portal.management.edu.traning.controller.filter;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.*;
+import portal.management.edu.traning.controller.ConstantCommand;
 import portal.management.edu.traning.entity.User;
 import portal.management.edu.traning.logic.LogicException;
 import portal.management.edu.traning.logic.LogicProvider;
@@ -29,7 +30,7 @@ public class RememberMeFilter extends HttpFilter implements Filter {
         try {
             HttpSession session = request.getSession(false);
 
-            if (session == null || session.getAttribute("user") == null) {
+            if (session == null || session.getAttribute(ConstantCommand.CONSTANT_USER) == null) {
 
                 Cookie[] cookies = request.getCookies();
 
@@ -37,7 +38,7 @@ public class RememberMeFilter extends HttpFilter implements Filter {
 
                     for (Cookie c : cookies) {
 
-                        if (c.getName().equals("remember-me")) {
+                        if (c.getName().equals(ConstantCommand.CONSTANT_REMEMBER)) {
 
                             User user = logicUser.informationViaTokenUser(new User(c.getValue()));
 
@@ -45,7 +46,7 @@ public class RememberMeFilter extends HttpFilter implements Filter {
 
                                 session = request.getSession(true);
 
-                                session.setAttribute("user", user);
+                                session.setAttribute(ConstantCommand.CONSTANT_USER, user);
 
                             }
 

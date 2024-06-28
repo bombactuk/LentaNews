@@ -4,8 +4,11 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import portal.management.edu.traning.controller.Command;
+import portal.management.edu.traning.controller.ConstantCommand;
 import portal.management.edu.traning.entity.ContactCommunication;
+import portal.management.edu.traning.entity.User;
 import portal.management.edu.traning.logic.InformationLogic;
 import portal.management.edu.traning.logic.LogicException;
 import portal.management.edu.traning.logic.LogicProvider;
@@ -22,26 +25,38 @@ public class ContactCommunicationAddCommand implements Command {
 
         try {
 
+            HttpSession session = request.getSession(false);
+
+            User user = (User) session.getAttribute(ConstantCommand.CONSTANT_USER);
+
+            if (user == null || !user.getRole().equals(ConstantCommand.CONSTANT_USER_ROLE_ADMIN)) {
+
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_UPDATES_PAGE);
+
+                return;
+
+            }
+
             ServletContext context = request.getServletContext();
 
             ContactCommunication contact = new ContactCommunication();
 
-            contact.setImg(request.getParameter("img"));
-            contact.setLink(request.getParameter("link"));
-            contact.setStatus("active");
-            contact.setIdAdmin(Integer.parseInt(request.getParameter("idAdmin")));
+            contact.setImg(request.getParameter(ConstantCommand.CONSTANT_COLUMN_IMG));
+            contact.setLink(request.getParameter(ConstantCommand.CONSTANT_COLUMN_LINK));
+            contact.setStatus(ConstantCommand.CONSTANT_COLUMN_STATUS_ACTIVE);
+            contact.setIdAdmin(user.getIdUser());
 
             if (logicInfo.addContact(contact)) {
 
-                context.setAttribute("contacts", logicInfo.allConnectionsWithUs());
+                context.setAttribute(ConstantCommand.CONSTANT_CONTACT, logicInfo.allConnectionsWithUs());
 
-                response.sendRedirect("urlToServlet?command=go_to_admin_page&" +
-                        "functionError=103");
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_ADMIN_PAGE +
+                        "&functionError=103");
 
             } else {
 
-                response.sendRedirect("urlToServlet?command=go_to_admin_page&" +
-                        "functionError=104");
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_ADMIN_PAGE +
+                        "&functionError=104");
 
             }
 

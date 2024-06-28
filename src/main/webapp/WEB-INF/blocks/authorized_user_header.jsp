@@ -23,7 +23,36 @@
 
         </ul>
 
-        <c:if test="${(sessionScope.user.role eq 'User' )}">
+        <div class="language-selector" id="language-selector">
+
+            <form id="language-form" action="urlToServlet" method="post">
+
+                <input type="hidden" name="command" value="locale_set"/>
+
+                <select name="language" id="language-select" onchange="submitLanguageForm()">
+
+                    <option value="" selected><fmt:message key="header.option.select"/></option>
+                    <option value="en"><fmt:message key="header.option.english"/></option>
+                    <option value="ru"><fmt:message key="header.option.russian"/></option>
+                    <!-- Add more languages as needed -->
+
+                </select>
+
+            </form>
+
+            <script>
+
+                function submitLanguageForm() {
+
+                    document.getElementById('language-form').submit();
+
+                }
+
+            </script>
+
+        </div>
+
+        <c:if test="${(sessionScope.user.role eq 'User' or sessionScope.user.role eq 'Editor')}">
 
             <div id="regAuth">
 

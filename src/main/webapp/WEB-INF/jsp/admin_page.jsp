@@ -46,25 +46,25 @@
 
             <c:if test="${ (param.functionError eq '103') }">
 
-                <p> <fmt:message key="admin_error_103"/> </p>
+                <p> <fmt:message key="update_error_function"/> <fmt:message key="admin_error_103"/> </p>
 
             </c:if>
 
             <c:if test="${ (param.functionError eq '104') }">
 
-                <p> <fmt:message key="admin_error_104"/> </p>
+                <p> <fmt:message key="update_error_function"/> <fmt:message key="admin_error_104"/> </p>
 
             </c:if>
 
             <c:if test="${ (param.functionError eq '105') }">
 
-                <p> <fmt:message key="admin_error_105"/> </p>
+                <p> <fmt:message key="update_error_function"/> <fmt:message key="admin_error_105"/> </p>
 
             </c:if>
 
             <c:if test="${ (param.functionError eq '106') }">
 
-                <p> <fmt:message key="admin_error_106"/> </p>
+                <p> <fmt:message key="update_error_function"/> <fmt:message key="admin_error_106"/> </p>
 
             </c:if>
 
@@ -83,8 +83,6 @@
             <form action="urlToServlet" method="post">
 
                 <input type="hidden" name="command" value="contact_add"/>
-
-                <input type="hidden" name="idAdmin" value="${sessionScope.user.idUser}"/>
 
                 <label for="title"> <fmt:message key="admin.text.img"/> </label>
                 <input type="text" placeholder="Image" id="imgContact" name="img" required><br><br>

@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import portal.management.edu.traning.controller.Command;
+import portal.management.edu.traning.controller.ConstantCommand;
 import portal.management.edu.traning.entity.News;
 import portal.management.edu.traning.logic.LogicException;
 import portal.management.edu.traning.logic.LogicProvider;
@@ -25,7 +26,7 @@ public class NewsSearchCommand implements Command {
 
             StringBuilder meaning = new StringBuilder();
 
-            meaning.append(request.getParameter("query"));
+            meaning.append(request.getParameter(ConstantCommand.CONSTANT_QUERY));
 
             List<News> news;
 
@@ -39,11 +40,11 @@ public class NewsSearchCommand implements Command {
 
             }
 
-            request.setAttribute("news", news);
+            request.setAttribute(ConstantCommand.CONSTANT_NEWS, news);
 
-            request.setAttribute("categories", logicNews.displayAllNewsCategories());
+            request.setAttribute(ConstantCommand.CONSTANT_CATEGORIES, logicNews.displayAllNewsCategories());
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/news_page.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher(ConstantCommand.CONSTANT_WEB_INF_NEWS_PAGE);
             dispatcher.forward(request, response);
 
         } catch (LogicException e) {

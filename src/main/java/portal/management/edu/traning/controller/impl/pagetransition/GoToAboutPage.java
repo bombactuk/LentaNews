@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import portal.management.edu.traning.controller.Command;
+import portal.management.edu.traning.controller.ConstantCommand;
 import portal.management.edu.traning.logic.InformationLogic;
 import portal.management.edu.traning.logic.LogicException;
 import portal.management.edu.traning.logic.LogicProvider;
@@ -21,9 +22,9 @@ public class GoToAboutPage implements Command {
 
         try {
 
-            request.setAttribute("aboutInformation", logicInfo.infoAbout());
+            request.setAttribute(ConstantCommand.CONSTANT_ABOUT_INFORMATION, logicInfo.infoAbout());
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/about_page.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher(ConstantCommand.CONSTANT_WEB_INF_ABOUT_PAGE);
             dispatcher.forward(request, response);
 
         } catch (LogicException e) {

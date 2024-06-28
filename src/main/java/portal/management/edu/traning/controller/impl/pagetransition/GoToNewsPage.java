@@ -6,13 +6,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import portal.management.edu.traning.controller.Command;
-import portal.management.edu.traning.entity.News;
+import portal.management.edu.traning.controller.ConstantCommand;
 import portal.management.edu.traning.logic.LogicException;
 import portal.management.edu.traning.logic.LogicProvider;
 import portal.management.edu.traning.logic.NewsLogic;
 
 import java.io.IOException;
-import java.util.List;
 
 public class GoToNewsPage implements Command {
 
@@ -26,19 +25,19 @@ public class GoToNewsPage implements Command {
 
             HttpSession session = request.getSession(false);
 
-            if (session.getAttribute("user") == null) {
+            if (session.getAttribute(ConstantCommand.CONSTANT_USER) == null) {
 
-                response.sendRedirect("urlToServlet?command=go_to_updates_page");
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_UPDATES_PAGE);
 
                 return;
 
             }
 
-            request.setAttribute("news", logicNews.displayAllNews());
+            request.setAttribute(ConstantCommand.CONSTANT_NEWS, logicNews.displayAllNews());
 
-            request.setAttribute("categories", logicNews.displayAllNewsCategories());
+            request.setAttribute(ConstantCommand.CONSTANT_CATEGORIES, logicNews.displayAllNewsCategories());
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/news_page.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher(ConstantCommand.CONSTANT_WEB_INF_NEWS_PAGE);
             dispatcher.forward(request, response);
 
         } catch (LogicException e) {

@@ -3,8 +3,11 @@ package portal.management.edu.traning.controller.impl.command.news;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import portal.management.edu.traning.controller.Command;
+import portal.management.edu.traning.controller.ConstantCommand;
 import portal.management.edu.traning.entity.News;
+import portal.management.edu.traning.entity.User;
 import portal.management.edu.traning.logic.LogicException;
 import portal.management.edu.traning.logic.LogicProvider;
 import portal.management.edu.traning.logic.NewsLogic;
@@ -21,19 +24,32 @@ public class NewsDeleteCommand implements Command {
 
         try {
 
+            HttpSession session = request.getSession(false);
+
+            User user = (User) session.getAttribute(ConstantCommand.CONSTANT_USER);
+
+            if (user == null || !user.getRole().equals(ConstantCommand.CONSTANT_USER_ROLE_ADMIN) &&
+                    !user.getRole().equals(ConstantCommand.CONSTANT_USER_ROLE_EDITOR)) {
+
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_UPDATES_PAGE);
+
+                return;
+
+            }
+
             News news = new News();
 
-            news.setIdNews(Integer.parseInt(request.getParameter("idNews")));
+            news.setIdNews(Integer.parseInt(request.getParameter(ConstantCommand.CONSTANT_COLUMN_NEWS_ID)));
 
             if (logicNews.deleteNews(news)) {
 
-                response.sendRedirect("urlToServlet?command=go_to_news_page&" +
-                        "messageFunctions=Delete news was successful!");
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_NEWS_PAGE +
+                        "&messageFunctions=117");
 
             } else {
 
-                response.sendRedirect("urlToServlet?command=go_to_news_page&" +
-                        "messageFunctions=Delete news was not successful!");
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_NEWS_PAGE +
+                        "&messageFunctions=118");
 
             }
 

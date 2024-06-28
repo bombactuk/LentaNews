@@ -3,6 +3,7 @@ package portal.management.edu.traning.controller.listener;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
+import portal.management.edu.traning.controller.ConstantCommand;
 import portal.management.edu.traning.entity.ContactCommunication;
 import portal.management.edu.traning.logic.InformationLogic;
 import portal.management.edu.traning.logic.LogicException;
@@ -30,13 +31,13 @@ public class InitializingContactWithUsListener implements ServletContextListener
 
             if (contacts != null) {
 
-                sce.getServletContext().setAttribute("contacts", contacts);
+                sce.getServletContext().setAttribute(ConstantCommand.CONSTANT_CONTACT, contacts);
 
             }
 
         } catch (LogicException e) {
 
-            LOGGER.log(Level.SEVERE, "Error initializing context", e);
+            LOGGER.log(Level.SEVERE, ConstantCommand.CONSTANT_ERROR_INITIALIZING_CONTEXT, e);
 
         }
 

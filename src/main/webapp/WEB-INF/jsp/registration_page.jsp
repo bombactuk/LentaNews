@@ -49,25 +49,31 @@
 
                     <c:if test="${ (param.regError eq '119') }">
 
-                        <p> <fmt:message key="registration_error_119"/> </p>
+                        <p> <fmt:message key="update_error_function"/> <fmt:message key="registration_error_119"/> </p>
 
                     </c:if>
 
                     <c:if test="${ (param.regError eq '120') }">
 
-                        <p> <fmt:message key="registration_error_120"/> </p>
+                        <p> <fmt:message key="update_error_function"/> <fmt:message key="registration_error_120"/> </p>
 
                     </c:if>
 
                     <c:if test="${ (param.regError eq '121') }">
 
-                        <p> <fmt:message key="registration_error_121"/> </p>
+                        <p> <fmt:message key="update_error_function"/> <fmt:message key="registration_error_121"/> </p>
 
                     </c:if>
 
                     <c:if test="${ (param.regError eq '122') }">
 
-                        <p> <fmt:message key="registration_error_122"/> </p>
+                        <p> <fmt:message key="update_error_function"/> <fmt:message key="registration_error_122"/> </p>
+
+                    </c:if>
+
+                    <c:if test="${ (param.regError eq '123') }">
+
+                        <p> <fmt:message key="update_error_function"/> <fmt:message key="registration_error_123"/> </p>
 
                     </c:if>
 

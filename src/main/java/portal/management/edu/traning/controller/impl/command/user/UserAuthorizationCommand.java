@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import portal.management.edu.traning.controller.Command;
+import portal.management.edu.traning.controller.ConstantCommand;
 import portal.management.edu.traning.entity.User;
 import portal.management.edu.traning.entity.UserAuthorizationInfo;
 import portal.management.edu.traning.logic.LogicException;
@@ -32,15 +33,16 @@ public class UserAuthorizationCommand implements Command {
             StringBuilder rememberMe = new StringBuilder();
             StringBuilder token = new StringBuilder();
 
-            login.append(request.getParameter("login"));
-            password.append(request.getParameter("password"));
-            rememberMe.append(request.getParameter("remember-me"));
+            login.append(request.getParameter(ConstantCommand.CONSTANT_COLUMN_LOGIN));
+            password.append(request.getParameter(ConstantCommand.CONSTANT_COLUMN_PASSWORD));
+            rememberMe.append(request.getParameter(ConstantCommand.CONSTANT_REMEMBER));
 
             ValidationResultValues validator = validBuild.validLoginPassword(login.toString(), password.toString()).build();
 
             if (validator.isResult()) {
 
-                response.sendRedirect("urlToServlet?command=go_to_authorization_page&authMessage=" + validator.getException());
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_AUTHORIZATION_PAGE +
+                        "&authMessage=" + validator.getException());
 
                 return;
 
@@ -52,13 +54,13 @@ public class UserAuthorizationCommand implements Command {
 
                 HttpSession session = request.getSession(true);
 
-                session.setAttribute("user", user);
+                session.setAttribute(ConstantCommand.CONSTANT_USER, user);
 
-                if (rememberMe.toString().equals("remember-me")) {
+                if (rememberMe.toString().equals(ConstantCommand.CONSTANT_REMEMBER)) {
 
                     token.append(UUID.randomUUID());
 
-                    Cookie cookie = new Cookie("remember-me", token.toString());
+                    Cookie cookie = new Cookie(ConstantCommand.CONSTANT_REMEMBER, token.toString());
 
                     cookie.setHttpOnly(true);
                     cookie.setSecure(true);
@@ -73,11 +75,12 @@ public class UserAuthorizationCommand implements Command {
 
                 }
 
-                response.sendRedirect("urlToServlet?command=go_to_news_page");
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_NEWS_PAGE);
 
             } else {
 
-                response.sendRedirect("urlToServlet?command=go_to_authorization&authMessage=Wrong login or password!");
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_AUTHORIZATION_PAGE +
+                        "&authMessage=109");
 
             }
 

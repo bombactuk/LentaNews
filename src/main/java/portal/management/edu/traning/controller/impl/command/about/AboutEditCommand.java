@@ -3,8 +3,11 @@ package portal.management.edu.traning.controller.impl.command.about;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import portal.management.edu.traning.controller.Command;
+import portal.management.edu.traning.controller.ConstantCommand;
 import portal.management.edu.traning.entity.AboutInfo;
+import portal.management.edu.traning.entity.User;
 import portal.management.edu.traning.logic.InformationLogic;
 import portal.management.edu.traning.logic.LogicException;
 import portal.management.edu.traning.logic.LogicProvider;
@@ -22,22 +25,34 @@ public class AboutEditCommand implements Command {
 
         try {
 
+            HttpSession session = request.getSession(false);
+
+            User user = (User) session.getAttribute(ConstantCommand.CONSTANT_USER);
+
+            if (user == null || !user.getRole().equals(ConstantCommand.CONSTANT_USER_ROLE_ADMIN)) {
+
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_UPDATES_PAGE);
+
+                return;
+
+            }
+
             AboutInfo aboutInfo = new AboutInfo();
 
-            aboutInfo.setIdAbout(Integer.parseInt(request.getParameter("idAbout")));
-            aboutInfo.setContent(request.getParameter("content"));
+            aboutInfo.setIdAbout(Integer.parseInt(request.getParameter(ConstantCommand.CONSTANT_COLUMN_ABOUT_ID)));
+            aboutInfo.setContent(request.getParameter(ConstantCommand.CONSTANT_COLUMN_CONTENT));
             aboutInfo.setDate_post(LocalDate.now());
-            aboutInfo.setStatus("active");
-            aboutInfo.setIdAdmin(Integer.parseInt(request.getParameter("idAdmin")));
+            aboutInfo.setStatus(ConstantCommand.CONSTANT_COLUMN_STATUS_ACTIVE);
+            aboutInfo.setIdAdmin(user.getIdUser());
 
             if (logicInfo.editAbout(aboutInfo)) {
 
-                response.sendRedirect("urlToServlet?command=go_to_about_page&" +
-                        "functionError=101");
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_ABOUT_PAGE +
+                        "&functionError=101");
 
             } else {
-                response.sendRedirect("urlToServlet?command=go_to_about_page&" +
-                        "functionError=102");
+                response.sendRedirect(ConstantCommand.CONSTANT_COMMAND_GO_TO_ABOUT_PAGE +
+                        "&functionError=102");
 
             }
 

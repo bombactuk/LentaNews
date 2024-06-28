@@ -31,37 +31,37 @@
 
             <c:if test="${ (param.editAnswer eq '109' ) }">
 
-                <p> <fmt:message key="news_info_error_109"/> </p>
+                <p> <fmt:message key="update_error_function"/> <fmt:message key="news_info_error_109"/> </p>
 
             </c:if>
 
             <c:if test="${ (param.editAnswer eq '110' ) }">
 
-                <p> <fmt:message key="news_info_error_110"/> </p>
+                <p> <fmt:message key="update_error_function"/> <fmt:message key="news_info_error_110"/> </p>
 
             </c:if>
 
             <c:if test="${ (param.editAnswer eq '111') }">
 
-                <p> <fmt:message key="news_info_error_111"/> </p>
+                <p> <fmt:message key="update_error_function"/> <fmt:message key="news_info_error_111"/> </p>
 
             </c:if>
 
             <c:if test="${ (param.editAnswer eq '112') }">
 
-                <p> <fmt:message key="news_info_error_112"/> </p>
+                <p> <fmt:message key="update_error_function"/> <fmt:message key="news_info_error_112"/> </p>
 
-            </c:if>news_info_error_113
+            </c:if>
 
             <c:if test="${ (param.editAnswer eq '113') }">
 
-                <p> <fmt:message key="news_info_error_113"/> </p>
+                <p> <fmt:message key="update_error_function"/> <fmt:message key="news_info_error_113"/> </p>
 
             </c:if>
 
             <c:if test="${ (param.editAnswer eq '114') }">
 
-                <p> <fmt:message key="news_info_error_114"/> </p>
+                <p> <fmt:message key="update_error_function"/> <fmt:message key="news_info_error_114"/> </p>
 
             </c:if>
 
@@ -69,7 +69,7 @@
 
     </div>
 
-	<c:if test="${(sessionScope.user.role eq 'Admin' )}">
+	<c:if test="${(sessionScope.user.role eq 'Admin' or sessionScope.user.role eq 'Editor')}">
 
         <div id="functionEditNews">
 
@@ -154,8 +154,6 @@
 
                         <input type="hidden" name="idNews" value="${infoNews.idNews}"/>
 
-                        <input type="hidden" name="idUser" value="${sessionScope.user.idUser}"/>
-
                         <label for="content"> <fmt:message key="news_info_text_comments_content"/> </label>
                         <textarea type="text" id="contentComment" name="content" required></textarea><br><br>
 
@@ -176,7 +174,7 @@
                     <p id="commentContent">${comment.content}</p>
                     <p id="commentAuthor"> <fmt:message key="news_info_text_comments_by"/> ${comment.nameUser} <fmt:message key="news_info_text_comments_on"/> ${comment.datePost}</p>
 
-                    <c:if test="${(sessionScope.user.role eq 'Admin')||(sessionScope.user.idUser eq comment.idUser)}">
+                    <c:if test="${ (sessionScope.user.role eq 'Admin' or sessionScope.user.role eq 'Editor') or (sessionScope.user.idUser eq comment.idUser) }">
 
                         <div id="functionDeleteComment">
 

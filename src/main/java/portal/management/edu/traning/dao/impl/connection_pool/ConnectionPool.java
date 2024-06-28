@@ -78,7 +78,7 @@ public class ConnectionPool {
 
         } catch (SQLException e) {
 
-            LOGGER.log(Level.SEVERE, "Error close Connections Queue");
+            LOGGER.log(Level.SEVERE, ConstantExceptionConnectionPool.CONSTANT_EXCEPTION_1);
 
         }
 
@@ -96,7 +96,7 @@ public class ConnectionPool {
 
                 } catch (SQLException e) {
 
-                    LOGGER.log(Level.SEVERE, "Error deregister JDBC driver: " + driver);
+                    LOGGER.log(Level.SEVERE, ConstantExceptionConnectionPool.CONSTANT_EXCEPTION_2 + driver);
 
                 }
 
@@ -106,7 +106,7 @@ public class ConnectionPool {
 
         } catch (Exception e) {
 
-            LOGGER.log(Level.SEVERE, "Error during connection pool disposal", e);
+            LOGGER.log(Level.SEVERE, ConstantExceptionConnectionPool.CONSTANT_EXCEPTION_3, e);
 
         }
 
@@ -143,7 +143,7 @@ public class ConnectionPool {
 
             } catch (InterruptedException e) {
 
-                LOGGER.log(Level.SEVERE, "Error open connection", e);
+                LOGGER.log(Level.SEVERE, ConstantExceptionConnectionPool.CONSTANT_EXCEPTION_4, e);
 
             }
 
@@ -164,7 +164,7 @@ public class ConnectionPool {
 
             } catch (InterruptedException e) {
 
-                LOGGER.log(Level.SEVERE, "Error open connection", e);
+                LOGGER.log(Level.SEVERE, ConstantExceptionConnectionPool.CONSTANT_EXCEPTION_4, e);
 
             }
 
@@ -186,7 +186,7 @@ public class ConnectionPool {
 
         } catch (SQLException e) {
 
-            LOGGER.log(Level.SEVERE, "Error close PreparedStatement", e);
+            LOGGER.log(Level.SEVERE, ConstantExceptionConnectionPool.CONSTANT_EXCEPTION_5, e);
 
             return false;
 
@@ -210,7 +210,7 @@ public class ConnectionPool {
 
         } catch (SQLException e) {
 
-            LOGGER.log(Level.SEVERE, "Error close Connection", e);
+            LOGGER.log(Level.SEVERE, ConstantExceptionConnectionPool.CONSTANT_EXCEPTION_6, e);
 
             return false;
         }
@@ -233,7 +233,7 @@ public class ConnectionPool {
 
         } catch (SQLException e) {
 
-            LOGGER.log(Level.SEVERE, "Error close ResultSet", e);
+            LOGGER.log(Level.SEVERE, ConstantExceptionConnectionPool.CONSTANT_EXCEPTION_7, e);
 
             return false;
 
@@ -275,7 +275,7 @@ public class ConnectionPool {
         public void close() throws SQLException {
 
             if (connection.isClosed()) {
-                throw new SQLException("isClosed Error");
+                throw new SQLException(ConstantExceptionConnectionPool.CONSTANT_EXCEPTION_8);
             }
 
             if (connection.isReadOnly()) {
@@ -286,14 +286,14 @@ public class ConnectionPool {
 
             if (!givenAwayConQueue.remove(this)) {
 
-                throw new SQLException("Error remove");
+                throw new SQLException(ConstantExceptionConnectionPool.CONSTANT_EXCEPTION_9);
 
             }
 
 
             if (!connectionQueue.offer(this)) {
 
-                throw new SQLException("Error offer");
+                throw new SQLException(ConstantExceptionConnectionPool.CONSTANT_EXCEPTION_10);
 
             }
 
